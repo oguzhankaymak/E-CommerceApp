@@ -1,0 +1,21 @@
+disabled_rules:
+  - identifier_name
+  - nesting
+  - function_parameter_count
+opt_in_rules:
+  - control_statement
+  - empty_count
+  - trailing_newline
+  - colon
+  - comma
+included:
+  - ECommerceApp
+  - ECommerceAppTests
+  - ECommerceAppUITests
+excluded:
+  - Pods
+
+force_cast: warning
+
+force_try:
+  severity: warning
