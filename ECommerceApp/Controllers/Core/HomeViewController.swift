@@ -1,6 +1,8 @@
 import UIKit
 
-class ViewController: UIViewController {
+class HomeViewController: UIViewController {
+
+    var coordinator: HomeCoordinatorProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
