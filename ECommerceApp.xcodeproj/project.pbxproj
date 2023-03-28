@@ -9,9 +9,23 @@
 /* Begin PBXBuildFile section */
 		E20BACE829D1CF550097564A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20BACE729D1CF550097564A /* AppDelegate.swift */; };
 		E20BACEA29D1CF550097564A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20BACE929D1CF550097564A /* SceneDelegate.swift */; };
-		E20BACEC29D1CF550097564A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20BACEB29D1CF550097564A /* ViewController.swift */; };
 		E20BACF129D1CF560097564A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E20BACF029D1CF560097564A /* Assets.xcassets */; };
 		E20BACF429D1CF560097564A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E20BACF229D1CF560097564A /* LaunchScreen.storyboard */; };
+		E23FA6ED29D2DB3600FCF557 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FA6EC29D2DB3600FCF557 /* Coordinator.swift */; };
+		E23FA6EF29D2DB5900FCF557 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FA6EE29D2DB5900FCF557 /* AppCoordinator.swift */; };
+		E23FA6F129D2DB7800FCF557 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FA6F029D2DB7800FCF557 /* TabBarCoordinator.swift */; };
+		E23FA6F629D2DCAA00FCF557 /* MainTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FA6F529D2DCAA00FCF557 /* MainTabbarViewController.swift */; };
+		E23FA6F829D2DCE600FCF557 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FA6F729D2DCE600FCF557 /* HomeViewController.swift */; };
+		E23FA6FA29D2DCF800FCF557 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FA6F929D2DCF800FCF557 /* SearchViewController.swift */; };
+		E23FA6FC29D2DD8300FCF557 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FA6FB29D2DD8300FCF557 /* CartViewController.swift */; };
+		E23FA6FE29D2DD8D00FCF557 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FA6FD29D2DD8D00FCF557 /* ProfileViewController.swift */; };
+		E23FA70229D2DEBF00FCF557 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FA70129D2DEBF00FCF557 /* HomeCoordinator.swift */; };
+		E23FA70429D2DEED00FCF557 /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FA70329D2DEED00FCF557 /* SearchCoordinator.swift */; };
+		E23FA70629D2DF0B00FCF557 /* CartCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FA70529D2DF0B00FCF557 /* CartCoordinator.swift */; };
+		E23FA70829D2DF4000FCF557 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FA70729D2DF4000FCF557 /* ProfileCoordinator.swift */; };
+		E23FA70B29D304FD00FCF557 /* CompositionalLayoutSectionHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FA70A29D304FC00FCF557 /* CompositionalLayoutSectionHelper.swift */; };
+		E23FA71129D3080F00FCF557 /* ProductCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FA71029D3080F00FCF557 /* ProductCategoryCollectionViewCell.swift */; };
+		E23FA71429D3091900FCF557 /* PostCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FA71329D3091900FCF557 /* PostCellViewModel.swift */; };
 		E26FF3B529D1D37C00A7CE50 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26FF3B429D1D37C00A7CE50 /* Theme.swift */; };
 /* End PBXBuildFile section */
 
@@ -19,10 +33,24 @@
 		E20BACE429D1CF550097564A /* ECommerceApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECommerceApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E20BACE729D1CF550097564A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E20BACE929D1CF550097564A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E20BACEB29D1CF550097564A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E20BACF029D1CF560097564A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E20BACF329D1CF560097564A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E20BACF529D1CF560097564A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E23FA6EC29D2DB3600FCF557 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		E23FA6EE29D2DB5900FCF557 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		E23FA6F029D2DB7800FCF557 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
+		E23FA6F529D2DCAA00FCF557 /* MainTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarViewController.swift; sourceTree = "<group>"; };
+		E23FA6F729D2DCE600FCF557 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		E23FA6F929D2DCF800FCF557 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		E23FA6FB29D2DD8300FCF557 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
+		E23FA6FD29D2DD8D00FCF557 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		E23FA70129D2DEBF00FCF557 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		E23FA70329D2DEED00FCF557 /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
+		E23FA70529D2DF0B00FCF557 /* CartCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartCoordinator.swift; sourceTree = "<group>"; };
+		E23FA70729D2DF4000FCF557 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
+		E23FA70A29D304FC00FCF557 /* CompositionalLayoutSectionHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayoutSectionHelper.swift; sourceTree = "<group>"; };
+		E23FA71029D3080F00FCF557 /* ProductCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		E23FA71329D3091900FCF557 /* PostCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCellViewModel.swift; sourceTree = "<group>"; };
 		E26FF3B429D1D37C00A7CE50 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -56,15 +84,109 @@
 		E20BACE629D1CF550097564A /* ECommerceApp */ = {
 			isa = PBXGroup;
 			children = (
+				E23FA71229D3090200FCF557 /* ViewModels */,
+				E23FA70E29D307C700FCF557 /* Views */,
+				E23FA70929D304E100FCF557 /* Helpers */,
+				E23FA6EB29D2DAFD00FCF557 /* Coordinator */,
+				E23FA6F229D2DC8A00FCF557 /* Controllers */,
 				E26FF3B329D1D36800A7CE50 /* Theme */,
 				E20BACE729D1CF550097564A /* AppDelegate.swift */,
 				E20BACE929D1CF550097564A /* SceneDelegate.swift */,
-				E20BACEB29D1CF550097564A /* ViewController.swift */,
 				E20BACF029D1CF560097564A /* Assets.xcassets */,
 				E20BACF229D1CF560097564A /* LaunchScreen.storyboard */,
 				E20BACF529D1CF560097564A /* Info.plist */,
 			);
 			path = ECommerceApp;
+			sourceTree = "<group>";
+		};
+		E23FA6EB29D2DAFD00FCF557 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				E23FA70029D2DE0300FCF557 /* General */,
+				E23FA6FF29D2DDFF00FCF557 /* Core */,
+				E23FA6EC29D2DB3600FCF557 /* Coordinator.swift */,
+				E23FA6EE29D2DB5900FCF557 /* AppCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		E23FA6F229D2DC8A00FCF557 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E23FA6F429D2DC9200FCF557 /* General */,
+				E23FA6F329D2DC8F00FCF557 /* Core */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E23FA6F329D2DC8F00FCF557 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				E23FA6F529D2DCAA00FCF557 /* MainTabbarViewController.swift */,
+				E23FA6F729D2DCE600FCF557 /* HomeViewController.swift */,
+				E23FA6F929D2DCF800FCF557 /* SearchViewController.swift */,
+				E23FA6FB29D2DD8300FCF557 /* CartViewController.swift */,
+				E23FA6FD29D2DD8D00FCF557 /* ProfileViewController.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		E23FA6F429D2DC9200FCF557 /* General */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		E23FA6FF29D2DDFF00FCF557 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				E23FA6F029D2DB7800FCF557 /* TabBarCoordinator.swift */,
+				E23FA70129D2DEBF00FCF557 /* HomeCoordinator.swift */,
+				E23FA70329D2DEED00FCF557 /* SearchCoordinator.swift */,
+				E23FA70529D2DF0B00FCF557 /* CartCoordinator.swift */,
+				E23FA70729D2DF4000FCF557 /* ProfileCoordinator.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		E23FA70029D2DE0300FCF557 /* General */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		E23FA70929D304E100FCF557 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				E23FA70A29D304FC00FCF557 /* CompositionalLayoutSectionHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		E23FA70E29D307C700FCF557 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E23FA70F29D307CE00FCF557 /* ProductCategoryCollectionViewCell */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E23FA70F29D307CE00FCF557 /* ProductCategoryCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				E23FA71029D3080F00FCF557 /* ProductCategoryCollectionViewCell.swift */,
+			);
+			path = ProductCategoryCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		E23FA71229D3090200FCF557 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				E23FA71329D3091900FCF557 /* PostCellViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		E26FF3B329D1D36800A7CE50 /* Theme */ = {
@@ -167,8 +289,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E20BACEC29D1CF550097564A /* ViewController.swift in Sources */,
+				E23FA6FA29D2DCF800FCF557 /* SearchViewController.swift in Sources */,
+				E23FA6F129D2DB7800FCF557 /* TabBarCoordinator.swift in Sources */,
+				E23FA6F629D2DCAA00FCF557 /* MainTabbarViewController.swift in Sources */,
+				E23FA6EF29D2DB5900FCF557 /* AppCoordinator.swift in Sources */,
+				E23FA70629D2DF0B00FCF557 /* CartCoordinator.swift in Sources */,
+				E23FA70B29D304FD00FCF557 /* CompositionalLayoutSectionHelper.swift in Sources */,
 				E26FF3B529D1D37C00A7CE50 /* Theme.swift in Sources */,
+				E23FA70429D2DEED00FCF557 /* SearchCoordinator.swift in Sources */,
+				E23FA71129D3080F00FCF557 /* ProductCategoryCollectionViewCell.swift in Sources */,
+				E23FA70829D2DF4000FCF557 /* ProfileCoordinator.swift in Sources */,
+				E23FA6FE29D2DD8D00FCF557 /* ProfileViewController.swift in Sources */,
+				E23FA6F829D2DCE600FCF557 /* HomeViewController.swift in Sources */,
+				E23FA70229D2DEBF00FCF557 /* HomeCoordinator.swift in Sources */,
+				E23FA6FC29D2DD8300FCF557 /* CartViewController.swift in Sources */,
+				E23FA71429D3091900FCF557 /* PostCellViewModel.swift in Sources */,
+				E23FA6ED29D2DB3600FCF557 /* Coordinator.swift in Sources */,
 				E20BACE829D1CF550097564A /* AppDelegate.swift in Sources */,
 				E20BACEA29D1CF550097564A /* SceneDelegate.swift in Sources */,
 			);
