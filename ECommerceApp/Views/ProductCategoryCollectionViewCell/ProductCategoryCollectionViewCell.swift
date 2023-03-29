@@ -1,16 +1,28 @@
 import UIKit
 
+protocol ProductCategoryCollectionViewCellDelegate: AnyObject {
+    func productCategoryButtonDidTap(category: String)
+}
+
 class ProductCategoryCollectionViewCell: UICollectionViewCell {
+
     static let identifier = "product-category-cell"
 
-    private lazy var containerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = Theme.Color.white
-        view.layer.cornerRadius = Theme.CornerRadius.small
-        view.layer.borderColor = Theme.Color.black.cgColor
-        view.layer.borderWidth = 1
-        return view
+    weak var delegate: ProductCategoryCollectionViewCellDelegate?
+
+    private lazy var containerButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = Theme.Color.white
+        button.layer.cornerRadius = Theme.CornerRadius.small
+        button.layer.borderColor = Theme.Color.black.cgColor
+        button.layer.borderWidth = 1
+        button.addTarget(
+            self,
+            action: #selector(productCategoryButtonDidTap),
+            for: .touchUpInside
+        )
+        return button
     }()
 
     private lazy var titleLabel: UILabel = {
@@ -33,39 +45,51 @@ class ProductCategoryCollectionViewCell: UICollectionViewCell {
     }
 }
 
-// MARK: - configureModel
+// MARK: - Configure Model
 extension ProductCategoryCollectionViewCell {
     func configureModel(with productCategory: ProductCategoryCellViewModel) {
+        containerButton.accessibilityIdentifier = productCategory.title
         titleLabel.text = productCategory.title
         if productCategory.isCurrentCategory {
-            containerView.backgroundColor = Theme.Color.black
+            containerButton.backgroundColor = Theme.Color.black
             titleLabel.textColor = Theme.Color.white
+        } else {
+            containerButton.backgroundColor = Theme.Color.white
+            titleLabel.textColor = Theme.Color.black
         }
+    }
+}
+
+// MARK: - Target Methods
+extension ProductCategoryCollectionViewCell {
+
+    @objc private func productCategoryButtonDidTap(sender: UIButton) {
+        delegate?.productCategoryButtonDidTap(category: sender.accessibilityIdentifier ??  "")
     }
 }
 
 // MARK: - Constraints
 extension ProductCategoryCollectionViewCell {
     private func addUIElements() {
-        contentView.addSubview(containerView)
-        containerView.addSubview(titleLabel)
+        contentView.addSubview(containerButton)
+        containerButton.addSubview(titleLabel)
     }
 
     private func configureConstraints() {
-        let containerViewConstraints = [
-            containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        let containerButtonConstraints = [
+            containerButton.topAnchor.constraint(equalTo: contentView.topAnchor),
+            containerButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            containerButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            containerButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ]
 
         let titleLabelConstraints = [
-            titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
-            titleLabel.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20)
+            titleLabel.leadingAnchor.constraint(equalTo: containerButton.leadingAnchor, constant: 20),
+            titleLabel.centerYAnchor.constraint(equalTo: containerButton.centerYAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: containerButton.trailingAnchor, constant: -20)
         ]
 
-        NSLayoutConstraint.activate(containerViewConstraints)
+        NSLayoutConstraint.activate(containerButtonConstraints)
         NSLayoutConstraint.activate(titleLabelConstraints)
     }
 }
