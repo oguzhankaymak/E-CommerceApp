@@ -12,7 +12,19 @@ class CompositionalLayoutSectionHelper {
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .continuous
+        section.orthogonalScrollingBehavior = .paging
+
+        let sectionHeaderItemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(60)
+        )
+
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: sectionHeaderItemSize,
+            elementKind: CollectionSectionHeaderView.kind,
+            alignment: .topLeading)
+
+        section.boundarySupplementaryItems = [header]
 
         return section
     }

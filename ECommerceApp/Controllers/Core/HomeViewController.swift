@@ -38,6 +38,11 @@ extension HomeViewController {
             ProductCategoryCollectionViewCell.self,
             forCellWithReuseIdentifier: ProductCategoryCollectionViewCell.identifier
         )
+        collectionView.register(
+            CollectionSectionHeaderView.self,
+            forSupplementaryViewOfKind: CollectionSectionHeaderView.kind,
+            withReuseIdentifier: CollectionSectionHeaderView.identifier
+        )
     }
 }
 
@@ -79,6 +84,26 @@ extension HomeViewController:
         default:
             return UICollectionViewCell()
         }
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        viewForSupplementaryElementOfKind kind: String,
+        at indexPath: IndexPath
+    ) -> UICollectionReusableView {
+        print("kind :\(kind)")
+
+        guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
+            ofKind: CollectionSectionHeaderView.kind,
+            withReuseIdentifier: CollectionSectionHeaderView.identifier,
+            for: indexPath
+        ) as? CollectionSectionHeaderView else {
+            return UICollectionReusableView()
+        }
+
+        supplementaryView.configureModel(with: "Categories")
+
+        return supplementaryView
     }
 }
 
