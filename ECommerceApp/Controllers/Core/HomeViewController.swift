@@ -4,6 +4,8 @@ class HomeViewController: UIViewController {
 
     var coordinator: HomeCoordinatorProtocol?
 
+    var model: HomeViewModel!
+
     let myArray = ["All", "Electronics", "Jewelery", "Men's clothing", "Women's clothing"]
 
     private lazy var collectionView: UICollectionView = {
@@ -19,13 +21,15 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Theme.Color.backgroundColor
+        model = HomeViewModel()
         addUIElements()
         configureCollectionView()
         configureConstraints()
+        subscribeToModel()
     }
 }
 
-// MARK: - configureCollectionView
+// MARK: - ConfigureCollectionView
 extension HomeViewController {
     private func configureCollectionView() {
         collectionView.dataSource = self
@@ -37,8 +41,9 @@ extension HomeViewController {
     }
 }
 
-// MARK: - UICollectionViewDataSource
-extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+// MARK: - UICollectionViewDataSource - UICollectionViewDelegate
+extension HomeViewController:
+    UICollectionViewDataSource, UICollectionViewDelegate {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -66,11 +71,29 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             cell.configureModel(
                 with: ProductCategoryCellViewModel(
                     title: currentCategory,
-                    isCurrentCategory: indexPath.row == 0)
+                    isCurrentCategory: model.activeCategory.value == currentCategory)
             )
+
+            cell.delegate = self
             return cell
         default:
             return UICollectionViewCell()
+        }
+    }
+}
+
+// MARK: - ProductCategoryCollectionViewCellDelegate
+extension HomeViewController: ProductCategoryCollectionViewCellDelegate {
+    func productCategoryButtonDidTap(category: String) {
+        model.changeActiveCategory(category: category)
+    }
+}
+
+// MARK: - SubscribeToModel
+extension HomeViewController {
+    func subscribeToModel() {
+        model.activeCategory.bind { [weak self]  _ in
+            self?.collectionView.reloadData()
         }
     }
 }
