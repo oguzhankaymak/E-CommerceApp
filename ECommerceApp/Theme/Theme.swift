@@ -15,6 +15,7 @@ extension Theme {
         static let black: UIColor = .black
         static let white: UIColor = .white
         static let backgroundColor: UIColor = .systemBackground
+        static let antiFlashWhite: UIColor = UIColor.rgba(red: 241, green: 244, blue: 247, alpha: 1)
     }
 
     enum BorderColor {
@@ -29,7 +30,7 @@ extension Theme {
         static let title = Font.systemFont(size: FontSize.large, weight: FontWeight.bold)
         static let descriptionOnboarding = Font.systemItalicFont(size: FontSize.description)
         static let segmentedControlTitle = Font.systemFont(size: FontSize.normal, weight: FontWeight.regular)
-        static let navigationBarItalic = Font.systemItalicFont(size: FontSize.navigationItem)
+        static let italicSmall = Font.systemItalicFont(size: FontSize.small)
         static let emptyText = Font.systemFont(size: FontSize.normal, weight: FontWeight.regular)
     }
 
