@@ -47,7 +47,7 @@ extension CollectionSectionHeaderView {
 
         let containerViewConstraints = [
             containerView.topAnchor.constraint(equalTo: topAnchor),
-            containerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            containerView.leadingAnchor.constraint(equalTo: leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ]
@@ -55,7 +55,7 @@ extension CollectionSectionHeaderView {
         let titleLabelConstraints = [
             titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
             titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
         ]
 

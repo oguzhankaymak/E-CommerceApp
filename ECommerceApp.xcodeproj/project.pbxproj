@@ -30,6 +30,11 @@
 		E26FF3B529D1D37C00A7CE50 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26FF3B429D1D37C00A7CE50 /* Theme.swift */; };
 		E285043D29D41A8E00F378F6 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E285043C29D41A8E00F378F6 /* HomeViewModel.swift */; };
 		E285044029D41ABA00F378F6 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E285043F29D41ABA00F378F6 /* Observable.swift */; };
+		E29C0FDB29D85C4600A5A4D5 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29C0FDA29D85C4600A5A4D5 /* UIColor+Extensions.swift */; };
+		E2A40B5629D4D12300860129 /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A40B5529D4D12300860129 /* ProductCollectionViewCell.swift */; };
+		E2A40B5A29D4D3D100860129 /* ProductCardImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A40B5929D4D3D100860129 /* ProductCardImageView.swift */; };
+		E2A40B5D29D4D5FE00860129 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = E2A40B5C29D4D5FE00860129 /* SDWebImage */; };
+		E2AC78CC29D5B63F0027A847 /* ProductCollectionReusableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AC78CB29D5B63F0027A847 /* ProductCollectionReusableHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +63,10 @@
 		E26FF3B429D1D37C00A7CE50 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		E285043C29D41A8E00F378F6 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E285043F29D41ABA00F378F6 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		E29C0FDA29D85C4600A5A4D5 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		E2A40B5529D4D12300860129 /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
+		E2A40B5929D4D3D100860129 /* ProductCardImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCardImageView.swift; sourceTree = "<group>"; };
+		E2AC78CB29D5B63F0027A847 /* ProductCollectionReusableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionReusableHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E2A40B5D29D4D5FE00860129 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +100,8 @@
 		E20BACE629D1CF550097564A /* ECommerceApp */ = {
 			isa = PBXGroup;
 			children = (
+				E29C0FD929D85BEF00A5A4D5 /* Extensions */,
+				E2A40B5729D4D29600860129 /* Components */,
 				E285043E29D41AA100F378F6 /* Utils */,
 				E23FA71229D3090200FCF557 /* ViewModels */,
 				E23FA70E29D307C700FCF557 /* Views */,
@@ -175,6 +187,8 @@
 		E23FA70E29D307C700FCF557 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E2AC78CA29D5B6170027A847 /* ProductCollectionReusableHeaderView */,
+				E2A40B5429D4D10900860129 /* ProductCollectionViewCell */,
 				E285044129D4B45F00F378F6 /* CollectionSectionHeaderView */,
 				E23FA70F29D307CE00FCF557 /* ProductCategoryCollectionViewCell */,
 			);
@@ -222,6 +236,46 @@
 			path = CollectionSectionHeaderView;
 			sourceTree = "<group>";
 		};
+		E29C0FD929D85BEF00A5A4D5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E29C0FDA29D85C4600A5A4D5 /* UIColor+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E2A40B5429D4D10900860129 /* ProductCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				E2A40B5529D4D12300860129 /* ProductCollectionViewCell.swift */,
+			);
+			path = ProductCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		E2A40B5729D4D29600860129 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				E2A40B5829D4D38600860129 /* ProductCard */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		E2A40B5829D4D38600860129 /* ProductCard */ = {
+			isa = PBXGroup;
+			children = (
+				E2A40B5929D4D3D100860129 /* ProductCardImageView.swift */,
+			);
+			path = ProductCard;
+			sourceTree = "<group>";
+		};
+		E2AC78CA29D5B6170027A847 /* ProductCollectionReusableHeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				E2AC78CB29D5B63F0027A847 /* ProductCollectionReusableHeaderView.swift */,
+			);
+			path = ProductCollectionReusableHeaderView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -239,6 +293,9 @@
 			dependencies = (
 			);
 			name = ECommerceApp;
+			packageProductDependencies = (
+				E2A40B5C29D4D5FE00860129 /* SDWebImage */,
+			);
 			productName = ECommerceApp;
 			productReference = E20BACE429D1CF550097564A /* ECommerceApp.app */;
 			productType = "com.apple.product-type.application";
@@ -267,6 +324,9 @@
 				Base,
 			);
 			mainGroup = E20BACDB29D1CF550097564A;
+			packageReferences = (
+				E2A40B5B29D4D5FE00860129 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = E20BACE529D1CF550097564A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -316,13 +376,16 @@
 			files = (
 				E244065B29D4B5FC00470B67 /* CollectionSectionHeader.swift in Sources */,
 				E285043D29D41A8E00F378F6 /* HomeViewModel.swift in Sources */,
+				E2A40B5629D4D12300860129 /* ProductCollectionViewCell.swift in Sources */,
 				E23FA6FA29D2DCF800FCF557 /* SearchViewController.swift in Sources */,
 				E23FA6F129D2DB7800FCF557 /* TabBarCoordinator.swift in Sources */,
 				E23FA6F629D2DCAA00FCF557 /* MainTabbarViewController.swift in Sources */,
+				E2A40B5A29D4D3D100860129 /* ProductCardImageView.swift in Sources */,
 				E23FA6EF29D2DB5900FCF557 /* AppCoordinator.swift in Sources */,
 				E23FA70629D2DF0B00FCF557 /* CartCoordinator.swift in Sources */,
 				E23FA70B29D304FD00FCF557 /* CompositionalLayoutSectionHelper.swift in Sources */,
 				E26FF3B529D1D37C00A7CE50 /* Theme.swift in Sources */,
+				E29C0FDB29D85C4600A5A4D5 /* UIColor+Extensions.swift in Sources */,
 				E23FA70429D2DEED00FCF557 /* SearchCoordinator.swift in Sources */,
 				E23FA71129D3080F00FCF557 /* ProductCategoryCollectionViewCell.swift in Sources */,
 				E23FA70829D2DF4000FCF557 /* ProfileCoordinator.swift in Sources */,
@@ -330,6 +393,7 @@
 				E23FA6F829D2DCE600FCF557 /* HomeViewController.swift in Sources */,
 				E23FA70229D2DEBF00FCF557 /* HomeCoordinator.swift in Sources */,
 				E23FA6FC29D2DD8300FCF557 /* CartViewController.swift in Sources */,
+				E2AC78CC29D5B63F0027A847 /* ProductCollectionReusableHeaderView.swift in Sources */,
 				E23FA71429D3091900FCF557 /* ProductCategoryCellViewModel.swift in Sources */,
 				E285044029D41ABA00F378F6 /* Observable.swift in Sources */,
 				E23FA6ED29D2DB3600FCF557 /* Coordinator.swift in Sources */,
@@ -542,6 +606,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E2A40B5B29D4D5FE00860129 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E2A40B5C29D4D5FE00860129 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E2A40B5B29D4D5FE00860129 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E20BACDC29D1CF550097564A /* Project object */;
 }

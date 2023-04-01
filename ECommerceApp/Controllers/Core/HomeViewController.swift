@@ -39,6 +39,11 @@ extension HomeViewController {
             forCellWithReuseIdentifier: ProductCategoryCollectionViewCell.identifier
         )
         collectionView.register(
+            ProductCollectionReusableHeaderView.self,
+            forSupplementaryViewOfKind: ProductCollectionReusableHeaderView.kind,
+            withReuseIdentifier: ProductCollectionReusableHeaderView.identifier
+        )
+        collectionView.register(
             CollectionSectionHeaderView.self,
             forSupplementaryViewOfKind: CollectionSectionHeaderView.kind,
             withReuseIdentifier: CollectionSectionHeaderView.identifier
@@ -91,19 +96,34 @@ extension HomeViewController:
         viewForSupplementaryElementOfKind kind: String,
         at indexPath: IndexPath
     ) -> UICollectionReusableView {
-        print("kind :\(kind)")
 
-        guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
-            ofKind: CollectionSectionHeaderView.kind,
-            withReuseIdentifier: CollectionSectionHeaderView.identifier,
-            for: indexPath
-        ) as? CollectionSectionHeaderView else {
+        switch kind {
+        case ProductCollectionReusableHeaderView.kind:
+            guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: ProductCollectionReusableHeaderView.kind,
+                withReuseIdentifier: ProductCollectionReusableHeaderView.identifier,
+                for: indexPath
+            ) as? ProductCollectionReusableHeaderView else {
+                return UICollectionReusableView()
+            }
+            return supplementaryView
+
+        case CollectionSectionHeaderView.kind:
+            guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
+                ofKind: CollectionSectionHeaderView.kind,
+                withReuseIdentifier: CollectionSectionHeaderView.identifier,
+                for: indexPath
+            ) as? CollectionSectionHeaderView else {
+                return UICollectionReusableView()
+            }
+
+            supplementaryView.configureModel(with: "Categories")
+
+            return supplementaryView
+
+        default:
             return UICollectionReusableView()
         }
-
-        supplementaryView.configureModel(with: "Categories")
-
-        return supplementaryView
     }
 }
 
