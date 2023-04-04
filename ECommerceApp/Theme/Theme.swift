@@ -16,6 +16,8 @@ extension Theme {
         static let white: UIColor = .white
         static let backgroundColor: UIColor = .systemBackground
         static let antiFlashWhite: UIColor = UIColor.rgba(red: 241, green: 244, blue: 247, alpha: 1)
+        static let starColor: UIColor = UIColor.rgba(red: 234, green: 154, blue: 58, alpha: 1)
+        static let gray: UIColor = .gray
     }
 
     enum BorderColor {
@@ -26,10 +28,12 @@ extension Theme {
 // MARK: - Font
 extension Theme {
     enum AppFont {
-        static let extraLargetitle = Font.systemFont(size: FontSize.extraLarge, weight: FontWeight.bold)
+        static let sectionTitle = Font.systemFont(size: FontSize.large, weight: FontWeight.bold)
         static let title = Font.systemFont(size: FontSize.large, weight: FontWeight.bold)
-        static let descriptionOnboarding = Font.systemItalicFont(size: FontSize.description)
-        static let segmentedControlTitle = Font.systemFont(size: FontSize.normal, weight: FontWeight.regular)
+        static let productCardTitle = Font.systemFont(size: FontSize.small, weight: FontWeight.semiBold)
+        static let productCardDescription = Font.systemFont(size: FontSize.small, weight: FontWeight.regular)
+        static let productCardPrice = Font.systemFont(size: FontSize.small, weight: FontWeight.bold)
+        static let productRating = Font.systemFont(size: FontSize.extraSmall, weight: FontWeight.regular)
         static let italicSmall = Font.systemItalicFont(size: FontSize.small)
         static let emptyText = Font.systemFont(size: FontSize.normal, weight: FontWeight.regular)
     }
@@ -45,16 +49,16 @@ extension Theme {
     }
 
     private enum FontSize {
-        static let extraLarge: CGFloat = 75
-        static let large: CGFloat = 25
-        static let navigationItem: CGFloat = 20
+        static let large: CGFloat = 20
         static let description: CGFloat = 17
         static let normal: CGFloat = 14
         static let small: CGFloat = 12
+        static let extraSmall: CGFloat = 10
     }
 
     private enum FontWeight {
         static let bold = UIFont.Weight.bold
+        static let semiBold = UIFont.Weight.semibold
         static let regular = UIFont.Weight.regular
         static let light = UIFont.Weight.light
     }
