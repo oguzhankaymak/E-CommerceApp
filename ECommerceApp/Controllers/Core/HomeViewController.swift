@@ -1,16 +1,27 @@
 import UIKit
+import OrderedCollections
 
 class HomeViewController: UIViewController {
 
     var coordinator: HomeCoordinatorProtocol?
-
     var model: HomeViewModel!
 
-    let myArray = ["All", "Electronics", "Jewelery", "Men's clothing", "Women's clothing"]
+    let sections: OrderedDictionary<String, NSCollectionLayoutSection> = [
+        "Hot Sales": CompositionalLayoutSectionHelper.createHotSalesProdutsSection(),
+        "Recommend For You": CompositionalLayoutSectionHelper.createRecommendForYouProdutsSection()
+    ]
 
     private lazy var collectionView: UICollectionView = {
-        let section = CompositionalLayoutSectionHelper.createProductCategoriesSection()
-        let layout = UICollectionViewCompositionalLayout(section: section)
+        let layout = UICollectionViewCompositionalLayout { (sectionIndex, _) in
+
+            switch sectionIndex {
+            case 0, 1:
+                return self.sections.elements[sectionIndex].value
+            default:
+                return nil
+            }
+
+        }
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -24,8 +35,9 @@ class HomeViewController: UIViewController {
         model = HomeViewModel()
         addUIElements()
         configureCollectionView()
-        configureConstraints()
         subscribeToModel()
+        configureConstraints()
+        model.getProducts(limit: nil)
     }
 }
 
@@ -34,15 +46,18 @@ extension HomeViewController {
     private func configureCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
+
         collectionView.register(
-            ProductCategoryCollectionViewCell.self,
-            forCellWithReuseIdentifier: ProductCategoryCollectionViewCell.identifier
+            ProductCollectionViewCell.self,
+            forCellWithReuseIdentifier: ProductCollectionViewCell.identifier
         )
+
         collectionView.register(
             ProductCollectionReusableHeaderView.self,
             forSupplementaryViewOfKind: ProductCollectionReusableHeaderView.kind,
             withReuseIdentifier: ProductCollectionReusableHeaderView.identifier
         )
+
         collectionView.register(
             CollectionSectionHeaderView.self,
             forSupplementaryViewOfKind: CollectionSectionHeaderView.kind,
@@ -56,39 +71,39 @@ extension HomeViewController:
     UICollectionViewDataSource, UICollectionViewDelegate {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return sections.count
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return myArray.count
+        return model.products.value?.count ?? 0
     }
 
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        switch indexPath.section {
-        case 0:
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: ProductCategoryCollectionViewCell.identifier,
-                for: indexPath
-            ) as? ProductCategoryCollectionViewCell else {
-                return UICollectionViewCell()
-            }
 
-            let currentCategory = myArray[indexPath.row]
-
-            cell.configureModel(
-                with: ProductCategoryCellViewModel(
-                    title: currentCategory,
-                    isCurrentCategory: model.activeCategory.value == currentCategory)
-            )
-
-            cell.delegate = self
-            return cell
-        default:
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: ProductCollectionViewCell.identifier,
+            for: indexPath
+        ) as? ProductCollectionViewCell else {
             return UICollectionViewCell()
         }
+
+        let currentProduct = model.products.value?[indexPath.row]
+
+        cell.configureModel(
+            with:
+                ProductCollectionViewCellViewModel(
+                    title: currentProduct?.title ?? "",
+                    description: currentProduct?.description ?? "",
+                    thumbnail: currentProduct?.thumbnail ?? "",
+                    price: currentProduct?.price ?? 0,
+                    rating: currentProduct?.rating ?? 0
+                )
+        )
+
+        return cell
     }
 
     func collectionView(
@@ -100,24 +115,27 @@ extension HomeViewController:
         switch kind {
         case ProductCollectionReusableHeaderView.kind:
             guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
-                ofKind: ProductCollectionReusableHeaderView.kind,
+                ofKind: kind,
                 withReuseIdentifier: ProductCollectionReusableHeaderView.identifier,
                 for: indexPath
             ) as? ProductCollectionReusableHeaderView else {
                 return UICollectionReusableView()
             }
+
             return supplementaryView
 
         case CollectionSectionHeaderView.kind:
             guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
-                ofKind: CollectionSectionHeaderView.kind,
+                ofKind: kind,
                 withReuseIdentifier: CollectionSectionHeaderView.identifier,
                 for: indexPath
             ) as? CollectionSectionHeaderView else {
                 return UICollectionReusableView()
             }
 
-            supplementaryView.configureModel(with: "Categories")
+            let sectionName = sections.elements[indexPath.section].key
+
+            supplementaryView.configureModel(with: sectionName)
 
             return supplementaryView
 
@@ -127,17 +145,10 @@ extension HomeViewController:
     }
 }
 
-// MARK: - ProductCategoryCollectionViewCellDelegate
-extension HomeViewController: ProductCategoryCollectionViewCellDelegate {
-    func productCategoryButtonDidTap(category: String) {
-        model.changeActiveCategory(category: category)
-    }
-}
-
 // MARK: - SubscribeToModel
 extension HomeViewController {
-    func subscribeToModel() {
-        model.activeCategory.bind { [weak self]  _ in
+    private func subscribeToModel() {
+        model.products.bind { [weak self] _ in
             self?.collectionView.reloadData()
         }
     }

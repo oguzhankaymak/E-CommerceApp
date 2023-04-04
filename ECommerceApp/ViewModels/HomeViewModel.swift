@@ -1,15 +1,19 @@
 import Foundation
 
 final class HomeViewModel {
-    private(set) var activeCategory = Observable<String>()
+    private(set) var products = Observable<[Product]>()
 
-    init() {
-        self.activeCategory.value = "All"
-    }
+    func getProducts(limit: Int?) {
+        APICaller.shared.getProducts(limit: limit) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let productResponse):
+                    self?.products.value = productResponse.products
 
-    // MARK: - Public Methods
-
-    func changeActiveCategory(category: String) {
-        activeCategory.value = category
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
 }
