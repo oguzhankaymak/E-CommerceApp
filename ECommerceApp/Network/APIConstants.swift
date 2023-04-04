@@ -1,5 +1,5 @@
 import Foundation
 
 struct Constants {
-    static let baseAPIURL = "https://fakestoreapi.com"
+    static let baseAPIURL = "https://dummyjson.com"
 }

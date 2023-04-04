@@ -5,8 +5,8 @@ struct APICaller {
 
     private init() {}
 
-    public func getProducts(limit: Int?, completion: @escaping (Result<[Product], Error>) -> Void) {
-        guard let url = URL(string: "\(Constants.baseAPIURL)/products") else {
+    public func getProducts(limit: Int?, completion: @escaping (Result<ProductResponse, Error>) -> Void) {
+        guard let url = URL(string: "\(Constants.baseAPIURL)/products?limit=15") else {
             return
         }
 
@@ -17,7 +17,7 @@ struct APICaller {
             }
 
             do {
-                let result = try JSONDecoder().decode([Product].self, from: data)
+                let result = try JSONDecoder().decode(ProductResponse.self, from: data)
                 completion(.success(result))
             } catch {
                 completion(.failure(error))
