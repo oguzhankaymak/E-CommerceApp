@@ -36,7 +36,7 @@ class HomeViewController: UIViewController {
         configureCollectionView()
         subscribeToModel()
         configureConstraints()
-        model.getProducts(limit: nil)
+        model.getProducts(limit: 30)
     }
 }
 
@@ -74,7 +74,14 @@ extension HomeViewController:
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return model.products.value?.count ?? 0
+        switch section {
+        case 0:
+            return model.hotSalesProducts.value?.count ?? 0
+        case 1:
+            return model.recommendProducts.value?.count ?? 0
+        default:
+            return 0
+        }
     }
 
     func collectionView(
@@ -89,7 +96,16 @@ extension HomeViewController:
             return UICollectionViewCell()
         }
 
-        let currentProduct = model.products.value?[indexPath.row]
+        var currentProduct: Product?
+
+        switch indexPath.section {
+        case 0:
+            currentProduct = model.hotSalesProducts.value?[indexPath.row]
+        case 1:
+            currentProduct = model.recommendProducts.value?[indexPath.row]
+        default:
+            currentProduct = nil
+        }
 
         cell.configureModel(
             with:
@@ -155,7 +171,11 @@ extension HomeViewController: ProductCollectionReusableHeaderViewDelegate {
 // MARK: - SubscribeToModel
 extension HomeViewController {
     private func subscribeToModel() {
-        model.products.bind { [weak self] _ in
+        model.hotSalesProducts.bind { [weak self] _ in
+            self?.collectionView.reloadData()
+        }
+
+        model.recommendProducts.bind { [weak self] _ in
             self?.collectionView.reloadData()
         }
     }

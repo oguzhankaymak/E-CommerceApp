@@ -6,7 +6,7 @@ struct APICaller {
     private init() {}
 
     public func getProducts(limit: Int?, completion: @escaping (Result<ProductResponse, Error>) -> Void) {
-        guard let url = URL(string: "\(Constants.baseAPIURL)/products?limit=15") else {
+        guard let url = URL(string: "\(Constants.baseAPIURL)/products") else {
             return
         }
 
