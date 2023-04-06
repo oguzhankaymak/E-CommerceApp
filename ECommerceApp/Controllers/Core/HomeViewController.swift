@@ -20,7 +20,6 @@ class HomeViewController: UIViewController {
             default:
                 return nil
             }
-
         }
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -122,6 +121,8 @@ extension HomeViewController:
                 return UICollectionReusableView()
             }
 
+            supplementaryView.delegate = self
+
             return supplementaryView
 
         case CollectionSectionHeaderView.kind:
@@ -145,6 +146,12 @@ extension HomeViewController:
     }
 }
 
+extension HomeViewController: ProductCollectionReusableHeaderViewDelegate {
+    func exploreButtonDidTap() {
+        print("exploreButtonDidTap")
+    }
+}
+
 // MARK: - SubscribeToModel
 extension HomeViewController {
     private func subscribeToModel() {
@@ -156,7 +163,6 @@ extension HomeViewController {
 
 // MARK: - Constraints
 extension HomeViewController {
-
     private func addUIElements() {
         view.addSubview(collectionView)
     }

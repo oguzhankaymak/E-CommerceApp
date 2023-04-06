@@ -1,10 +1,16 @@
 import UIKit
 import SDWebImage
 
+protocol ProductCollectionReusableHeaderViewDelegate: AnyObject {
+    func exploreButtonDidTap()
+}
+
 class ProductCollectionReusableHeaderView: UICollectionReusableView {
 
     static let kind = "product-collection-header"
     static let identifier = "product-collection-header"
+
+    weak var delegate: ProductCollectionReusableHeaderViewDelegate?
 
     private lazy var containerView: UIView = {
         let view = UIView()
@@ -39,6 +45,7 @@ class ProductCollectionReusableHeaderView: UICollectionReusableView {
         button.backgroundColor = Theme.Color.black
         button.layer.cornerRadius = Theme.CornerRadius.normal
         button.layer.masksToBounds = true
+        button.addTarget(self, action: #selector(exploreButtonDidTap), for: .touchUpInside  )
         return button
     }()
 
@@ -60,6 +67,10 @@ class ProductCollectionReusableHeaderView: UICollectionReusableView {
 
     required init?(coder: NSCoder) {
         fatalError("ProductCollectionReusableHeaderView has not been implemented")
+    }
+
+    @objc private func exploreButtonDidTap() {
+        delegate?.exploreButtonDidTap()
     }
 }
 
