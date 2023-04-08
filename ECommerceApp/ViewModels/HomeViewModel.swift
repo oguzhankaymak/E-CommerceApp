@@ -1,14 +1,17 @@
 import Foundation
 
 final class HomeViewModel {
+    private(set) var isLoading = Observable<Bool>()
     private(set) var hotSalesProducts = Observable<[Product]>()
     private(set) var recommendProducts = Observable<[Product]>()
 
     func getProducts(limit: Int?) {
+        self.isLoading.value = true
         APICaller.shared.getProducts(limit: limit) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let productResponse):
+
                     let products = productResponse.products
 
                     let hotSalesProducts = Array(products[...10])
@@ -16,9 +19,11 @@ final class HomeViewModel {
 
                     self?.hotSalesProducts.value = hotSalesProducts
                     self?.recommendProducts.value = recommendProducts
+                    self?.isLoading.value = false
 
                 case .failure(let error):
                     print(error.localizedDescription)
+                    self?.isLoading.value = false
                 }
             }
         }

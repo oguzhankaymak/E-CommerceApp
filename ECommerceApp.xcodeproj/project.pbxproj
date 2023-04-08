@@ -39,7 +39,6 @@
 		E29C0FDB29D85C4600A5A4D5 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29C0FDA29D85C4600A5A4D5 /* UIColor+Extensions.swift */; };
 		E2A40B5D29D4D5FE00860129 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = E2A40B5C29D4D5FE00860129 /* SDWebImage */; };
 		E2AC78CC29D5B63F0027A847 /* ProductCollectionReusableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AC78CB29D5B63F0027A847 /* ProductCollectionReusableHeaderView.swift */; };
-		E2B6833C29DF526D0099823D /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B6833B29DF526D0099823D /* MockData.swift */; };
 		E2C6C3A629D9B3EA00624DE7 /* APICaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C6C3A529D9B3EA00624DE7 /* APICaller.swift */; };
 		E2C6C3A829D9B3F700624DE7 /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C6C3A729D9B3F700624DE7 /* APIConstants.swift */; };
 		E2C6C3AA29D9B40000624DE7 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2C6C3A929D9B40000624DE7 /* APIError.swift */; };
@@ -83,7 +82,6 @@
 		E285043F29D41ABA00F378F6 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		E29C0FDA29D85C4600A5A4D5 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		E2AC78CB29D5B63F0027A847 /* ProductCollectionReusableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionReusableHeaderView.swift; sourceTree = "<group>"; };
-		E2B6833B29DF526D0099823D /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		E2C6C3A529D9B3EA00624DE7 /* APICaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICaller.swift; sourceTree = "<group>"; };
 		E2C6C3A729D9B3F700624DE7 /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		E2C6C3A929D9B40000624DE7 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
@@ -306,17 +304,8 @@
 		E2B6833929DF52530099823D /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				E2B6833A29DF525D0099823D /* Mock */,
 			);
 			path = Data;
-			sourceTree = "<group>";
-		};
-		E2B6833A29DF525D0099823D /* Mock */ = {
-			isa = PBXGroup;
-			children = (
-				E2B6833B29DF526D0099823D /* MockData.swift */,
-			);
-			path = Mock;
 			sourceTree = "<group>";
 		};
 		E2C6C3A429D9B3D800624DE7 /* Network */ = {
@@ -488,7 +477,6 @@
 				E20BACE829D1CF550097564A /* AppDelegate.swift in Sources */,
 				E2DFA38029DFBC13007DFFC6 /* ProductCollectionSkeletonViewCell.swift in Sources */,
 				E20BACEA29D1CF550097564A /* SceneDelegate.swift in Sources */,
-				E2B6833C29DF526D0099823D /* MockData.swift in Sources */,
 				E228722529E1B5CB008D22D6 /* Animation.swift in Sources */,
 				E2C6C3AA29D9B40000624DE7 /* APIError.swift in Sources */,
 			);

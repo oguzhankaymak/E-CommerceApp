@@ -52,6 +52,11 @@ extension HomeViewController {
         )
 
         collectionView.register(
+            ProductCollectionSkeletonViewCell.self,
+            forCellWithReuseIdentifier: ProductCollectionSkeletonViewCell.identifier
+        )
+
+        collectionView.register(
             ProductCollectionReusableHeaderView.self,
             forSupplementaryViewOfKind: ProductCollectionReusableHeaderView.kind,
             withReuseIdentifier: ProductCollectionReusableHeaderView.identifier
@@ -74,13 +79,17 @@ extension HomeViewController:
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return model.hotSalesProducts.value?.count ?? 0
-        case 1:
-            return model.recommendProducts.value?.count ?? 0
-        default:
-            return 0
+        if model.isLoading.value ?? false {
+            return 2
+        } else {
+            switch section {
+            case 0:
+                return model.hotSalesProducts.value?.count ?? 0
+            case 1:
+                return model.recommendProducts.value?.count ?? 0
+            default:
+                return 0
+            }
         }
     }
 
@@ -89,36 +98,50 @@ extension HomeViewController:
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
 
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: ProductCollectionViewCell.identifier,
-            for: indexPath
-        ) as? ProductCollectionViewCell else {
-            return UICollectionViewCell()
+        if model.isLoading.value ?? false {
+
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: ProductCollectionSkeletonViewCell.identifier,
+                for: indexPath
+            ) as? ProductCollectionSkeletonViewCell else {
+                return UICollectionViewCell()
+            }
+
+            return cell
+
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: ProductCollectionViewCell.identifier,
+                for: indexPath
+            ) as? ProductCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+
+            var currentProduct: Product?
+
+            switch indexPath.section {
+            case 0:
+                currentProduct = model.hotSalesProducts.value?[indexPath.row]
+            case 1:
+                currentProduct = model.recommendProducts.value?[indexPath.row]
+            default:
+                currentProduct = nil
+            }
+
+            cell.configureModel(
+                with:
+                    ProductCollectionViewCellViewModel(
+                        title: currentProduct?.title ?? "",
+                        description: currentProduct?.description ?? "",
+                        thumbnail: currentProduct?.thumbnail ?? "",
+                        price: currentProduct?.price ?? 0,
+                        rating: currentProduct?.rating ?? 0
+                    )
+            )
+
+            return cell
         }
 
-        var currentProduct: Product?
-
-        switch indexPath.section {
-        case 0:
-            currentProduct = model.hotSalesProducts.value?[indexPath.row]
-        case 1:
-            currentProduct = model.recommendProducts.value?[indexPath.row]
-        default:
-            currentProduct = nil
-        }
-
-        cell.configureModel(
-            with:
-                ProductCollectionViewCellViewModel(
-                    title: currentProduct?.title ?? "",
-                    description: currentProduct?.description ?? "",
-                    thumbnail: currentProduct?.thumbnail ?? "",
-                    price: currentProduct?.price ?? 0,
-                    rating: currentProduct?.rating ?? 0
-                )
-        )
-
-        return cell
     }
 
     func collectionView(
@@ -171,11 +194,8 @@ extension HomeViewController: ProductCollectionReusableHeaderViewDelegate {
 // MARK: - SubscribeToModel
 extension HomeViewController {
     private func subscribeToModel() {
-        model.hotSalesProducts.bind { [weak self] _ in
-            self?.collectionView.reloadData()
-        }
 
-        model.recommendProducts.bind { [weak self] _ in
+        model.isLoading.bind { [weak self] _ in
             self?.collectionView.reloadData()
         }
     }
