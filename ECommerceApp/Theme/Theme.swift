@@ -2,6 +2,7 @@ import UIKit
 
 final class Theme {
     enum CornerRadius {
+        static let skeleton: CGFloat = 5
         static let small: CGFloat = 8
         static let normal: CGFloat = 12
         static let large: CGFloat = 18
@@ -18,6 +19,8 @@ extension Theme {
         static let antiFlashWhite: UIColor = UIColor.rgba(red: 241, green: 244, blue: 247, alpha: 1)
         static let starColor: UIColor = UIColor.rgba(red: 234, green: 154, blue: 58, alpha: 1)
         static let gray: UIColor = .gray
+        static let darkGrey = UIColor.rgba(red: 239, green: 241, blue: 241, alpha: 1)
+        static let lightGrey = UIColor.rgba(red: 201, green: 201, blue: 201, alpha: 1)
     }
 
     enum BorderColor {
