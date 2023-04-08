@@ -1,7 +1,7 @@
 import UIKit
 import SDWebImage
 
-final class ProductCard: UIView {
+final class ProductCardView: UIView {
 
     private lazy var productImageView: UIImageView = {
         let imageView = UIImageView()
@@ -83,7 +83,7 @@ final class ProductCard: UIView {
 }
 
 // MARK: - Configure
-extension ProductCard {
+extension ProductCardView {
     func configure(
         productImageURL: URL,
         productTitle: String,
@@ -100,7 +100,7 @@ extension ProductCard {
 }
 
 // MARK: - Constraints
-extension ProductCard {
+extension ProductCardView {
     private func addUIElements() {
         addSubview(productImageView)
         addSubview(productTitleLabel)

@@ -3,7 +3,7 @@ import UIKit
 class ProductCollectionViewCell: UICollectionViewCell {
 
     static let identifier = "product-cell"
-    private lazy var productCard = ProductCard()
+    private lazy var productCardView = ProductCardView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,7 +21,7 @@ extension ProductCollectionViewCell {
     func configureModel(with model: ProductCollectionViewCellViewModel) {
         guard let productImageUrl = URL(string: model.thumbnail) else { return }
 
-        productCard.configure(
+        productCardView.configure(
             productImageURL: productImageUrl,
             productTitle: model.title,
             productDescription: model.description,
@@ -35,15 +35,15 @@ extension ProductCollectionViewCell {
 extension ProductCollectionViewCell {
 
     private func addUIElements() {
-        contentView.addSubview(productCard)
+        contentView.addSubview(productCardView)
     }
 
     private func configureConstraints() {
         let productCardViewConstraints = [
-            productCard.topAnchor.constraint(equalTo: contentView.topAnchor),
-            productCard.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            productCard.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-            productCard.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            productCardView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            productCardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            productCardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            productCardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ]
 
         NSLayoutConstraint.activate(productCardViewConstraints)
