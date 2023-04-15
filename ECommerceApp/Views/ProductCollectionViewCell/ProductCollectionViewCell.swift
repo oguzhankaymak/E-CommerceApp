@@ -1,6 +1,12 @@
 import UIKit
 
+protocol ProductCollectionViewCellDelegate: AnyObject {
+    func productBuyButtonDidTap(product: ProductCardViewModel?)
+}
+
 class ProductCollectionViewCell: UICollectionViewCell {
+
+    weak var delegate: ProductCollectionViewCellDelegate?
 
     static let identifier = "product-cell"
     private lazy var productCardView = ProductCardView()
@@ -16,18 +22,30 @@ class ProductCollectionViewCell: UICollectionViewCell {
     }
 }
 
+extension ProductCollectionViewCell: ProductCardViewDelegate {
+    func productBuyButtonDidTap(product: ProductCardViewModel?) {
+        delegate?.productBuyButtonDidTap(product: product)
+    }
+}
+
 // MARK: - Configure Model
 extension ProductCollectionViewCell {
     func configureModel(with model: ProductCollectionViewCellViewModel) {
         guard let productImageUrl = URL(string: model.thumbnail) else { return }
 
-        productCardView.configure(
-            productImageURL: productImageUrl,
-            productTitle: model.title,
-            productDescription: model.description,
-            productPrice: "$\(model.price)",
-            productRating: ToString(model.rating)
+        let productCardModel = ProductCardViewModel(
+            id: model.id,
+            title: model.title,
+            brand: model.description,
+            category: model.category,
+            description: model.brand,
+            thumbnail: productImageUrl,
+            price: model.price,
+            rating: model.rating
         )
+
+        productCardView.configure(model: productCardModel)
+        productCardView.delegate = self
     }
 }
 

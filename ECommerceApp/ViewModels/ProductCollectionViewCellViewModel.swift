@@ -1,7 +1,8 @@
 import Foundation
 
 struct ProductCollectionViewCellViewModel {
-    let title, description, thumbnail: String
+    let id: Int
+    let title, description, thumbnail, brand, category: String
     let price: Double
     let rating: Double
 }
