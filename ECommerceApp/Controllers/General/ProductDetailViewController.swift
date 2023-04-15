@@ -41,7 +41,7 @@ extension ProductDetailViewController {
             description: product.description
         )
 
-        productDetailFooterView.configure(price: ToString(product.price))
+        productDetailFooterView.configure(price: "$\(product.price)")
     }
 }
 

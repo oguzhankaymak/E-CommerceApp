@@ -102,7 +102,7 @@ extension ProductCardView {
         productImageView.sd_setImage(with: model.thumbnail)
         productTitleLabel.text = model.title
         productDescriptionLabel.text = model.description
-        productPriceLabel.text =  ToString(model.price)
+        productPriceLabel.text =  "$\(model.price)"
         productRatingLabel.text = ToString(model.rating)
     }
 }
