@@ -56,7 +56,6 @@ final class ProductDetailHeaderView: UIView {
         return stackView
     }()
 
-
     // MARK: - Init
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)

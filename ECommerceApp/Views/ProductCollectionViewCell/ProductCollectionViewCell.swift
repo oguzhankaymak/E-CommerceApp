@@ -26,7 +26,7 @@ extension ProductCollectionViewCell {
             productTitle: model.title,
             productDescription: model.description,
             productPrice: "$\(model.price)",
-            productRating: "\(model.rating)"
+            productRating: ToString(model.rating)
         )
     }
 }

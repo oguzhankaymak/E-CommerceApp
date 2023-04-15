@@ -35,13 +35,13 @@ extension ProductDetailViewController {
         productDetailBodyView.configure(
             title: product.title,
             brandName: product.brand,
-            discount: "\(product.discountPercentage)",
-            rating: "\(product.rating)",
-            stock: "\(product.stock)",
+            discount: ToString(product.discountPercentage),
+            rating: ToString(product.rating),
+            stock: ToString(product.stock),
             description: product.description
         )
 
-        productDetailFooterView.configure(price: "\(product.price)")
+        productDetailFooterView.configure(price: ToString(product.price))
     }
 }
 
