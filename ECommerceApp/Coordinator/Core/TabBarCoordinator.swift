@@ -20,10 +20,11 @@ class TabBarCoordinator: Coordinator {
         searchNavigationController.tabBarItem.image = UIImage(systemName: "magnifyingglass")
         let searchCoordinator = SearchCoordinator(navigationController: searchNavigationController)
 
-        let chartNavigationController = UINavigationController()
-        chartNavigationController.tabBarItem.image = UIImage(systemName: "cart")
-        chartNavigationController.tabBarItem.selectedImage = UIImage(systemName: "cart.fill")
-        let chartCoordinator = CartCoordinator(navigationController: chartNavigationController)
+        let cartNavigationController = UINavigationController()
+        cartNavigationController.tabBarItem.image = UIImage(systemName: "cart")
+        cartNavigationController.tabBarItem.selectedImage = UIImage(systemName: "cart.fill")
+        cartNavigationController.tabBarItem.badgeValue = AppData.cart.isEmpty ? nil : ToString(AppData.cart.count)
+        let cartCoordinator = CartCoordinator(navigationController: cartNavigationController)
 
         let profileNavigationController = UINavigationController()
         profileNavigationController.tabBarItem.image = UIImage(systemName: "person.crop.circle")
@@ -33,7 +34,7 @@ class TabBarCoordinator: Coordinator {
         tabBarController.viewControllers = [
             homeNavigationController,
             searchNavigationController,
-            chartNavigationController,
+            cartNavigationController,
             profileNavigationController
         ]
 
@@ -45,7 +46,7 @@ class TabBarCoordinator: Coordinator {
 
         coordinate(to: homeCoordinator)
         coordinate(to: searchCoordinator)
-        coordinate(to: chartCoordinator)
+        coordinate(to: cartCoordinator)
         coordinate(to: profileCoordinator)
     }
 }
