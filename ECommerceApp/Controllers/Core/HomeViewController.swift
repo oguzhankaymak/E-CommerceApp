@@ -183,6 +183,23 @@ extension HomeViewController:
             return UICollectionReusableView()
         }
     }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        var currentProduct: Product?
+
+        switch indexPath.section {
+        case 0:
+            currentProduct = model.hotSalesProducts.value?[indexPath.row]
+        case 1:
+            currentProduct = model.recommendProducts.value?[indexPath.row]
+        default:
+            currentProduct = nil
+        }
+
+        guard let product = currentProduct else { return }
+
+        coordinator?.goToProductDetail(product: product)
+    }
 }
 
 extension HomeViewController: ProductCollectionReusableHeaderViewDelegate {

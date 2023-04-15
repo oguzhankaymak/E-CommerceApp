@@ -1,6 +1,8 @@
 import UIKit
 
-protocol HomeCoordinatorProtocol {}
+protocol HomeCoordinatorProtocol {
+    func goToProductDetail(product: Product)
+}
 
 class HomeCoordinator: Coordinator, HomeCoordinatorProtocol {
 
@@ -13,7 +15,17 @@ class HomeCoordinator: Coordinator, HomeCoordinatorProtocol {
     func start() {
         let homeViewController = HomeViewController()
         homeViewController.coordinator = self
-
         navigationController?.pushViewController(homeViewController, animated: false)
     }
+
+    // MARK: - FLOWS
+    func goToProductDetail(product: Product) {
+        let productDetailCoordinator = ProductDetailCoordinator(
+            navigationController: navigationController ?? UINavigationController(),
+            product: product
+        )
+
+        coordinate(to: productDetailCoordinator)
+    }
+
 }
