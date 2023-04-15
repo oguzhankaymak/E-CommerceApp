@@ -45,7 +45,7 @@ class ProductCollectionReusableHeaderView: UICollectionReusableView {
         button.backgroundColor = Theme.Color.black
         button.layer.cornerRadius = Theme.CornerRadius.normal
         button.layer.masksToBounds = true
-        button.addTarget(self, action: #selector(exploreButtonDidTap), for: .touchUpInside  )
+        button.addTarget(self, action: #selector(exploreButtonDidTap), for: .touchUpInside)
         return button
     }()
 

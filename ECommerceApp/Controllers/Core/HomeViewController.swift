@@ -37,6 +37,7 @@ class HomeViewController: UIViewController {
         subscribeToModel()
         configureConstraints()
         model.getProducts(limit: 30)
+
     }
 }
 
@@ -131,14 +132,18 @@ extension HomeViewController:
             cell.configureModel(
                 with:
                     ProductCollectionViewCellViewModel(
+                        id: currentProduct?.id ?? 0,
                         title: currentProduct?.title ?? "",
                         description: currentProduct?.description ?? "",
                         thumbnail: currentProduct?.thumbnail ?? "",
+                        brand: currentProduct?.brand ?? "",
+                        category: currentProduct?.category ?? "",
                         price: currentProduct?.price ?? 0,
                         rating: currentProduct?.rating ?? 0
                     )
             )
 
+            cell.delegate = self
             return cell
         }
 
