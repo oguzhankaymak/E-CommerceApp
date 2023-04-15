@@ -1,7 +1,14 @@
 import UIKit
 import SDWebImage
 
+protocol ProductCardViewDelegate: AnyObject {
+    func productBuyButtonDidTap(product: ProductCardViewModel?)
+}
+
 final class ProductCardView: UIView {
+
+    weak var delegate: ProductCardViewDelegate?
+    private var product: ProductCardViewModel?
 
     private lazy var productImageView: UIImageView = {
         let imageView = UIImageView()
@@ -66,6 +73,7 @@ final class ProductCardView: UIView {
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = Theme.CornerRadius.small
         button.layer.masksToBounds = true
+        button.addTarget(self, action: #selector(productBuyButtonDidTap), for: .touchUpInside)
         return button
     }()
 
@@ -80,22 +88,22 @@ final class ProductCardView: UIView {
     required init?(coder: NSCoder) {
         fatalError("ProductCard has not been implemented")
     }
+
+    @objc private func productBuyButtonDidTap() {
+        delegate?.productBuyButtonDidTap(product: product)
+    }
 }
 
 // MARK: - Configure
 extension ProductCardView {
-    func configure(
-        productImageURL: URL,
-        productTitle: String,
-        productDescription: String,
-        productPrice: String,
-        productRating: String
-    ) {
-        productImageView.sd_setImage(with: productImageURL)
-        productTitleLabel.text = productTitle
-        productDescriptionLabel.text = productDescription
-        productPriceLabel.text =  productPrice
-        productRatingLabel.text = productRating
+    func configure(model: ProductCardViewModel) {
+        self.product = model
+
+        productImageView.sd_setImage(with: model.thumbnail)
+        productTitleLabel.text = model.title
+        productDescriptionLabel.text = model.description
+        productPriceLabel.text =  ToString(model.price)
+        productRatingLabel.text = ToString(model.rating)
     }
 }
 
