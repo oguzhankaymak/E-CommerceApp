@@ -2,6 +2,7 @@ import UIKit
 
 final class Theme {
     enum CornerRadius {
+        static let extraSmall: CGFloat = 4
         static let skeleton: CGFloat = 5
         static let small: CGFloat = 8
         static let normal: CGFloat = 12
@@ -33,6 +34,7 @@ extension Theme {
     enum AppFont {
         static let sectionTitle = Font.systemFont(size: FontSize.large, weight: FontWeight.bold)
         static let title = Font.systemFont(size: FontSize.large, weight: FontWeight.bold)
+        static let productInfo = Font.systemFont(size: FontSize.normal, weight: FontWeight.semiBold)
         static let productCardTitle = Font.systemFont(size: FontSize.small, weight: FontWeight.semiBold)
         static let productCardDescription = Font.systemFont(size: FontSize.small, weight: FontWeight.regular)
         static let productCardPrice = Font.systemFont(size: FontSize.small, weight: FontWeight.bold)
@@ -52,7 +54,7 @@ extension Theme {
     }
 
     private enum FontSize {
-        static let large: CGFloat = 20
+        static let large: CGFloat = 22
         static let description: CGFloat = 17
         static let normal: CGFloat = 14
         static let small: CGFloat = 12
