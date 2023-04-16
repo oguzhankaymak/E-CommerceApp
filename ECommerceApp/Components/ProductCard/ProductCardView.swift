@@ -2,13 +2,12 @@ import UIKit
 import SDWebImage
 
 protocol ProductCardViewDelegate: AnyObject {
-    func productBuyButtonDidTap(product: ProductCardViewModel?)
+    func productBuyButtonDidTap()
 }
 
 final class ProductCardView: UIView {
 
     weak var delegate: ProductCardViewDelegate?
-    private var product: ProductCardViewModel?
 
     private lazy var productImageView: UIImageView = {
         let imageView = UIImageView()
@@ -90,15 +89,13 @@ final class ProductCardView: UIView {
     }
 
     @objc private func productBuyButtonDidTap() {
-        delegate?.productBuyButtonDidTap(product: product)
+        delegate?.productBuyButtonDidTap()
     }
 }
 
 // MARK: - Configure
 extension ProductCardView {
     func configure(model: ProductCardViewModel) {
-        self.product = model
-
         productImageView.sd_setImage(with: model.thumbnail)
         productTitleLabel.text = model.title
         productDescriptionLabel.text = model.description

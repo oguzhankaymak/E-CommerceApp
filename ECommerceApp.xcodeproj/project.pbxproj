@@ -179,12 +179,45 @@
 			path = SkeletonGradientLayer;
 			sourceTree = "<group>";
 		};
-		E236223A29EB564D00B5E640 /* ProductCardViewModel */ = {
+		E22AA4E829EC15950039DC1B /* ProductCard */ = {
 			isa = PBXGroup;
 			children = (
 				E236223B29EB565F00B5E640 /* ProductCardViewModel.swift */,
 			);
-			path = ProductCardViewModel;
+			path = ProductCard;
+			sourceTree = "<group>";
+		};
+		E22AA4E929EC15A00039DC1B /* ProductCategory */ = {
+			isa = PBXGroup;
+			children = (
+				E23FA71329D3091900FCF557 /* ProductCategoryCellViewModel.swift */,
+			);
+			path = ProductCategory;
+			sourceTree = "<group>";
+		};
+		E22AA4EA29EC15CE0039DC1B /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				E21DAC2F29DA75C800099B8C /* ProductCollectionViewCellViewModel.swift */,
+				E285043C29D41A8E00F378F6 /* HomeViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		E22AA4EB29EC15D40039DC1B /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				E2C6C3B229D9B5B600624DE7 /* SearchViewModel.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		E22AA4EC29EC15DA0039DC1B /* ProductDetail */ = {
+			isa = PBXGroup;
+			children = (
+				E227331729E2C6D90095846C /* ProductDetailViewModel.swift */,
+			);
+			path = ProductDetail;
 			sourceTree = "<group>";
 		};
 		E23FA6EB29D2DAFD00FCF557 /* Coordinator */ = {
@@ -243,7 +276,6 @@
 		E23FA70E29D307C700FCF557 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E236223A29EB564D00B5E640 /* ProductCardViewModel */,
 				E2CFAFC929E21DF80097BE35 /* CarouselImageViewCell */,
 				E2C6C3AF29D9B54000624DE7 /* ProductCollectionViewCell */,
 				E2AC78CA29D5B6170027A847 /* ProductCollectionReusableHeaderView */,
@@ -264,11 +296,11 @@
 		E23FA71229D3090200FCF557 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				E23FA71329D3091900FCF557 /* ProductCategoryCellViewModel.swift */,
-				E285043C29D41A8E00F378F6 /* HomeViewModel.swift */,
-				E2C6C3B229D9B5B600624DE7 /* SearchViewModel.swift */,
-				E21DAC2F29DA75C800099B8C /* ProductCollectionViewCellViewModel.swift */,
-				E227331729E2C6D90095846C /* ProductDetailViewModel.swift */,
+				E22AA4EC29EC15DA0039DC1B /* ProductDetail */,
+				E22AA4EB29EC15D40039DC1B /* Search */,
+				E22AA4EA29EC15CE0039DC1B /* Home */,
+				E22AA4E929EC15A00039DC1B /* ProductCategory */,
+				E22AA4E829EC15950039DC1B /* ProductCard */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -709,6 +741,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ECommerceApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -735,6 +768,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ECommerceApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

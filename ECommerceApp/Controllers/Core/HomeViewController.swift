@@ -214,22 +214,8 @@ extension HomeViewController: ProductCollectionReusableHeaderViewDelegate {
 }
 
 extension HomeViewController: ProductCollectionViewCellDelegate {
-    func productBuyButtonDidTap(product: ProductCardViewModel?) {
-
-        guard let product = product else { return }
-
-        let cartProduct = CartProduct(
-            id: product.id,
-            price: product.price,
-            title: product.title,
-            description: product.description,
-            brand: product.brand,
-            category: product.category,
-            thumbnail: product.thumbnail,
-            quantity: 1
-        )
-
-        CartHelper.addProductToCart(product: cartProduct)
+    func productBuyButtonDidTap(product: ProductCollectionViewCellViewModel?) {
+        model.addProductToCart(product: product)
     }
 }
 
