@@ -68,9 +68,9 @@ final class ProductCardView: UIView {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Add to cart", for: .normal)
-        button.backgroundColor = .gray
+        button.backgroundColor = Theme.Color.black
         button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = Theme.CornerRadius.small
+        button.layer.cornerRadius = Theme.CornerRadius.special
         button.layer.masksToBounds = true
         button.addTarget(self, action: #selector(productBuyButtonDidTap), for: .touchUpInside)
         return button
@@ -99,7 +99,7 @@ extension ProductCardView {
         productImageView.sd_setImage(with: model.thumbnail)
         productTitleLabel.text = model.title
         productDescriptionLabel.text = model.description
-        productPriceLabel.text =  "$\(model.price)"
+        productPriceLabel.text =  model.formattedPrice
         productRatingLabel.text = ToString(model.rating)
     }
 }

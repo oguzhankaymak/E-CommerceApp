@@ -6,10 +6,11 @@ protocol ProductCollectionViewCellDelegate: AnyObject {
 
 class ProductCollectionViewCell: UICollectionViewCell {
 
+    static let identifier = "product-cell"
+
     weak var delegate: ProductCollectionViewCellDelegate?
     var productModel: ProductCollectionViewCellViewModel?
 
-    static let identifier = "product-cell"
     private lazy var productCardView = ProductCardView()
 
     override init(frame: CGRect) {
@@ -44,7 +45,7 @@ extension ProductCollectionViewCell {
             category: model.category,
             description: model.description,
             thumbnail: productImageUrl,
-            price: model.price,
+            formattedPrice: String(format: "$%.02f", model.price),
             rating: model.rating
         )
 

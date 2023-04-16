@@ -20,7 +20,7 @@ final class ProductDetailFooterView: UIView {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
 
-        button.backgroundColor = Theme.Color.gray
+        button.backgroundColor = Theme.Color.black
         button.layer.cornerRadius = 10
         button.setTitle("Add to cart", for: .normal)
         button.setTitleColor(Theme.Color.white, for: .normal)
@@ -47,8 +47,8 @@ final class ProductDetailFooterView: UIView {
 
 // MARK: - Configure
 extension ProductDetailFooterView {
-    func configure(price: String) {
-        priceLabel.text = price
+    func configure(formattedPrice: String) {
+        priceLabel.text = formattedPrice
     }
 }
 

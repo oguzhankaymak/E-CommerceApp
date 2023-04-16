@@ -4,6 +4,6 @@ struct ProductCardViewModel {
     let id: Int
     let title, brand, category, description: String
     let thumbnail: URL
-    let price: Double
+    let formattedPrice: String
     let rating: Double
 }
