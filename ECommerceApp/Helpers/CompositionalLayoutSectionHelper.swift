@@ -17,7 +17,7 @@ class CompositionalLayoutSectionHelper {
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .paging
+        section.orthogonalScrollingBehavior = .groupPaging
 
         let topHeaderSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
@@ -61,7 +61,7 @@ class CompositionalLayoutSectionHelper {
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .paging
+        section.orthogonalScrollingBehavior = .groupPaging
 
         let sectionHeaderItemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
@@ -90,7 +90,7 @@ class CompositionalLayoutSectionHelper {
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
         let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .paging
+        section.orthogonalScrollingBehavior = .continuous
 
         let sectionHeaderItemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
