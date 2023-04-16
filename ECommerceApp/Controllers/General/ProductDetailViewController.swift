@@ -25,6 +25,13 @@ class ProductDetailViewController: UIViewController {
     }
 }
 
+// MARK: - ProductDetailFooterViewDelegate
+extension ProductDetailViewController: ProductDetailFooterViewDelegate {
+    func buyButtonDidTap() {
+        model.addProductToCart(product: product)
+    }
+}
+
 // MARK: - ConfigureViews
 extension ProductDetailViewController {
 
@@ -42,6 +49,7 @@ extension ProductDetailViewController {
         )
 
         productDetailFooterView.configure(price: "$\(product.price)")
+        productDetailFooterView.delegate = self
     }
 }
 

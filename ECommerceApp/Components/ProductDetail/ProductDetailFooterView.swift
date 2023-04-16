@@ -1,6 +1,12 @@
 import UIKit
 
+protocol ProductDetailFooterViewDelegate: AnyObject {
+    func buyButtonDidTap()
+}
+
 final class ProductDetailFooterView: UIView {
+
+    weak var delegate: ProductDetailFooterViewDelegate?
 
     private lazy var priceLabel: UILabel = {
         let label = UILabel()
@@ -18,6 +24,7 @@ final class ProductDetailFooterView: UIView {
         button.layer.cornerRadius = 10
         button.setTitle("Add to cart", for: .normal)
         button.setTitleColor(Theme.Color.white, for: .normal)
+        button.addTarget(self, action: #selector(buyButtonDidTap), for: .touchUpInside)
         return button
     }()
 
@@ -31,6 +38,10 @@ final class ProductDetailFooterView: UIView {
 
     required init?(coder: NSCoder) {
         fatalError("ProductDetailFooterView has not been implemented")
+    }
+
+    @objc private func buyButtonDidTap() {
+        delegate?.buyButtonDidTap()
     }
 }
 
