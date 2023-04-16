@@ -4,6 +4,7 @@ final class Theme {
     enum CornerRadius {
         static let extraSmall: CGFloat = 4
         static let skeleton: CGFloat = 5
+        static let special: CGFloat = 7
         static let small: CGFloat = 8
         static let normal: CGFloat = 12
         static let large: CGFloat = 18
@@ -22,6 +23,7 @@ extension Theme {
         static let gray: UIColor = .gray
         static let darkGrey = UIColor.rgba(red: 239, green: 241, blue: 241, alpha: 1)
         static let lightGrey = UIColor.rgba(red: 201, green: 201, blue: 201, alpha: 1)
+        static let secondaryBlack = UIColor.rgba(red: 0, green: 0, blue: 0, alpha: 0.8)
     }
 
     enum BorderColor {

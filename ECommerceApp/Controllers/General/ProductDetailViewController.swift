@@ -11,6 +11,23 @@ class ProductDetailViewController: UIViewController {
     private lazy var productDetailBodyView = ProductDetailBodyView()
     private lazy var productDetailFooterView = ProductDetailFooterView()
 
+    private lazy var successView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
+        view.backgroundColor = Theme.Color.secondaryBlack
+        return view
+    }()
+
+    private lazy var successLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Successfully added"
+        label.textColor = Theme.Color.white
+        label.font = Theme.AppFont.productInfo
+        return label
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Theme.Color.backgroundColor
@@ -22,6 +39,14 @@ class ProductDetailViewController: UIViewController {
         configureNavigationBar()
         configureConstraints()
         subscribeToModel()
+    }
+
+    private func showSuccessView() {
+        successView.isHidden = false
+    }
+
+    private func hideSuccessView() {
+        successView.isHidden = true
     }
 }
 
@@ -48,7 +73,7 @@ extension ProductDetailViewController {
             description: product.description
         )
 
-        productDetailFooterView.configure(price: "$\(product.price)")
+        productDetailFooterView.configure(formattedPrice: String(format: "$%.02f", product.price))
         productDetailFooterView.delegate = self
     }
 }
@@ -128,6 +153,14 @@ extension ProductDetailViewController {
                 }
             }
         }
+
+        model.isVisibleSuccessView.bind { [weak self] isVisible in
+            if isVisible ?? false {
+                self?.showSuccessView()
+            } else {
+                self?.hideSuccessView()
+            }
+        }
     }
 }
 
@@ -138,6 +171,9 @@ extension ProductDetailViewController {
         view.addSubview(productDetailHeaderView)
         view.addSubview(productDetailBodyView)
         view.addSubview(productDetailFooterView)
+
+        view.addSubview(successView)
+        successView.addSubview(successLabel)
     }
 
     private func configureConstraints() {
@@ -173,8 +209,22 @@ extension ProductDetailViewController {
             productDetailFooterView.heightAnchor.constraint(equalToConstant: 50)
         ]
 
+        let successViewConstraints = [
+            successView.heightAnchor.constraint(equalToConstant: 60),
+            successView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            successView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            successView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ]
+
+        let successLabelConstraints = [
+            successLabel.centerYAnchor.constraint(equalTo: successView.centerYAnchor),
+            successLabel.leadingAnchor.constraint(equalTo: successView.leadingAnchor, constant: 20)
+        ]
+
         NSLayoutConstraint.activate(productDetailHeaderViewConstraints)
         NSLayoutConstraint.activate(productDetailBodyViewConstraints)
         NSLayoutConstraint.activate(productDetailFooterViewConstraints)
+        NSLayoutConstraint.activate(successViewConstraints)
+        NSLayoutConstraint.activate(successLabelConstraints)
     }
 }

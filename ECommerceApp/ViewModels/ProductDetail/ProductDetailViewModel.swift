@@ -1,6 +1,8 @@
 import Foundation
 
 final class ProductDetailViewModel {
+
+    private(set) var isVisibleSuccessView = Observable<Bool>()
     private(set) var activeCarouselImageIndex = Observable<Int>()
 
     init() {
@@ -26,5 +28,15 @@ final class ProductDetailViewModel {
         )
 
         CartHelper.addProductToCart(product: cartProduct)
+        showAndHideSuccessView()
+    }
+
+    // MARK: - Private Methods
+    private func showAndHideSuccessView() {
+        isVisibleSuccessView.value = true
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            self.isVisibleSuccessView.value = false
+        })
     }
 }
