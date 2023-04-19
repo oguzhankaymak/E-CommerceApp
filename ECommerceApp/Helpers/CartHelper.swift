@@ -7,6 +7,7 @@ final class CartHelper {
 
         if let index = index {
             AppData.cart[index].quantity += 1
+            AppData.cart[index].price += product.price
         } else {
             AppData.cart.append(product)
         }
