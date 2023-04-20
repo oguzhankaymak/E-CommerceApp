@@ -111,12 +111,6 @@ extension HomeViewController:
             return cell
 
         } else {
-            guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: ProductCollectionViewCell.identifier,
-                for: indexPath
-            ) as? ProductCollectionViewCell else {
-                return UICollectionViewCell()
-            }
 
             var currentProduct: Product?
 
@@ -129,19 +123,16 @@ extension HomeViewController:
                 currentProduct = nil
             }
 
-            cell.configureModel(
-                with:
-                    ProductCollectionViewCellViewModel(
-                        id: currentProduct?.id ?? 0,
-                        title: currentProduct?.title ?? "",
-                        description: currentProduct?.description ?? "",
-                        thumbnail: currentProduct?.thumbnail ?? "",
-                        brand: currentProduct?.brand ?? "",
-                        category: currentProduct?.category ?? "",
-                        price: currentProduct?.price ?? 0,
-                        rating: currentProduct?.rating ?? 0
-                    )
-            )
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: ProductCollectionViewCell.identifier,
+                for: indexPath
+            ) as? ProductCollectionViewCell,
+                  let product = currentProduct
+            else {
+                return UICollectionViewCell()
+            }
+
+            cell.configureModel(product: product)
 
             cell.delegate = self
             return cell
@@ -214,7 +205,8 @@ extension HomeViewController: ProductCollectionReusableHeaderViewDelegate {
 }
 
 extension HomeViewController: ProductCollectionViewCellDelegate {
-    func productBuyButtonDidTap(product: ProductCollectionViewCellViewModel?) {
+    func productBuyButtonDidTap(product: Product) {
+
         model.addProductToCart(product: product)
     }
 }

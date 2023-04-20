@@ -29,13 +29,12 @@ final class HomeViewModel {
         }
     }
 
-    func addProductToCart(product: ProductCollectionViewCellViewModel?) {
-
-        guard let product = product else { return }
+    func addProductToCart(product: Product) {
 
         let cartProduct = CartProduct(
-            id: product.id,
-            price: product.price,
+            productId: product.id,
+            unitPrice: product.price,
+            totalPrice: product.price,
             title: product.title,
             description: product.description,
             brand: product.brand,
@@ -44,6 +43,6 @@ final class HomeViewModel {
             quantity: 1
         )
 
-        CartHelper.addProductToCart(product: cartProduct)
+        CartHelper.addProductToCart(cartProduct: cartProduct)
     }
 }

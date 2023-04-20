@@ -1,7 +1,7 @@
 import UIKit
 
 protocol ProductCollectionViewCellDelegate: AnyObject {
-    func productBuyButtonDidTap(product: ProductCollectionViewCellViewModel?)
+    func productBuyButtonDidTap(product: Product)
 }
 
 class ProductCollectionViewCell: UICollectionViewCell {
@@ -9,12 +9,14 @@ class ProductCollectionViewCell: UICollectionViewCell {
     static let identifier = "product-cell"
 
     weak var delegate: ProductCollectionViewCellDelegate?
-    var productModel: ProductCollectionViewCellViewModel?
+    var model: ProductCollectionViewCellViewModel?
 
     private lazy var productCardView = ProductCardView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+
+        model = ProductCollectionViewCellViewModel()
         addUIElements()
         configureConstraints()
     }
@@ -25,28 +27,30 @@ class ProductCollectionViewCell: UICollectionViewCell {
 }
 
 extension ProductCollectionViewCell: ProductCardViewDelegate {
+
     func productBuyButtonDidTap() {
-        delegate?.productBuyButtonDidTap(product: productModel)
+        guard let product = model?.product else { return }
+        delegate?.productBuyButtonDidTap(product: product)
     }
 }
 
 // MARK: - Configure Model
 extension ProductCollectionViewCell {
-    func configureModel(with model: ProductCollectionViewCellViewModel) {
+    func configureModel(product: Product) {
 
-        self.productModel = model
+        self.model?.product = product
 
-        guard let productImageUrl = URL(string: model.thumbnail) else { return }
+        guard let productImageUrl = URL(string: product.thumbnail) else { return }
 
         let productCardModel = ProductCardViewModel(
-            id: model.id,
-            title: model.title,
-            brand: model.description,
-            category: model.category,
-            description: model.description,
+            id: product.id,
+            title: product.title,
+            brand: product.description,
+            category: product.category,
+            description: product.description,
             thumbnail: productImageUrl,
-            formattedPrice: String(format: "$%.02f", model.price),
-            rating: model.rating
+            formattedPrice: String(format: "$%.02f", product.price),
+            rating: product.rating
         )
 
         productCardView.configure(model: productCardModel)
