@@ -1,14 +1,15 @@
 import UIKit
 
 protocol CartProductTableViewCellDelegate: AnyObject {
-    func didTapPlusButton()
-    func didTapMinusButton()
+    func didTapPlusButton(cartProduct: CartProduct)
+    func didTapMinusButton(cartProduct: CartProduct)
 }
 
 class CartProductTableViewCell: UITableViewCell {
 
     static let identifier = "cart-product-cell"
 
+    var model: CartProductTableViewCellViewModel?
     weak var delegate: CartProductTableViewCellDelegate?
 
     private lazy var containerView: UIView = {
@@ -58,6 +59,7 @@ class CartProductTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
 
+        model = CartProductTableViewCellViewModel()
         addUIElements()
         configureConstraints()
     }
@@ -69,14 +71,16 @@ class CartProductTableViewCell: UITableViewCell {
 
 // MARK: - Configure
 extension CartProductTableViewCell {
-    func configure(image: String, title: String, description: String, price: Double, quantity: Int) {
-        guard let imageURL = URL(string: image) else { return }
+    func configure(cartProduct: CartProduct) {
+        model?.cartProduct = cartProduct
+
+        guard let imageURL = URL(string: cartProduct.thumbnail) else { return }
 
         thumbnailImageView.sd_setImage(with: imageURL)
-        titleLabel.text = title
-        descriptionLabel.text = description
-        priceLabel.text = String(format: "$%.02f", price)
-        quantityInputView.quantityLabel.text = ToString(quantity)
+        titleLabel.text = cartProduct.title
+        descriptionLabel.text = cartProduct.description
+        priceLabel.text = String(format: "$%.02f", cartProduct.totalPrice)
+        quantityInputView.quantityLabel.text = ToString(cartProduct.quantity)
 
         quantityInputView.delegate = self
     }
@@ -85,11 +89,13 @@ extension CartProductTableViewCell {
 // MARK: - QuantityInputDelegate
 extension CartProductTableViewCell: QuantityInputViewDelegate {
     func didTapPlusButton() {
-        delegate?.didTapPlusButton()
+        guard let cartProduct = model?.cartProduct else { return }
+        delegate?.didTapPlusButton(cartProduct: cartProduct)
     }
 
     func didTapMinusButton() {
-        delegate?.didTapMinusButton()
+        guard let cartProduct = model?.cartProduct else { return }
+        delegate?.didTapMinusButton(cartProduct: cartProduct)
     }
 }
 
@@ -135,7 +141,7 @@ extension CartProductTableViewCell {
         let quantityInputViewConstraints = [
             quantityInputView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 30),
             quantityInputView.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            quantityInputView.trailingAnchor.constraint(equalTo: containerView.centerXAnchor),
+            quantityInputView.trailingAnchor.constraint(equalTo: priceLabel.leadingAnchor),
             quantityInputView.heightAnchor.constraint(equalToConstant: 16)
         ]
 
