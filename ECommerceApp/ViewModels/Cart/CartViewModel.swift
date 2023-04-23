@@ -2,11 +2,14 @@ import Foundation
 
 final class CartViewModel {
 
+    var onComplete: (() -> Void)?
+    private(set) var isLoading = Observable<Bool>()
     private(set) var cartData = Observable<[CartProduct]>()
     private(set) var totalPrice = Observable<String>()
     private(set) var warning = Observable<Warning>()
 
     init() {
+        self.isLoading.value = false
         self.cartData.value = AppData.cart
         calculateTotalPrice()
 
@@ -22,14 +25,25 @@ final class CartViewModel {
         NotificationCenter.default.removeObserver(self)
     }
 
-    func clearCart() {
-        warning.value = Warning(
-            title: "Are you sure?",
-            message: "All products will be removed from your cart",
-            warningType: "clearCart"
-        )
+    func checkout() {
+        isLoading.value = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+            self.isLoading.value = false
+            CartHelper.clearCart()
+            self.onComplete?()
+        })
+    }
 
-        warning.value = nil
+    func clearCart() {
+        if !checkIsLoading() {
+            warning.value = Warning(
+                title: "Are you sure?",
+                message: "All products will be removed from your cart",
+                warningType: "clearCart"
+            )
+
+            warning.value = nil
+        }
     }
 
     func forceClearCart() {
@@ -37,15 +51,21 @@ final class CartViewModel {
     }
 
     func addProductToCart(cartProduct: CartProduct) {
-        CartHelper.addProductToCart(cartProduct: cartProduct)
+        if !checkIsLoading() {
+            CartHelper.addProductToCart(cartProduct: cartProduct)
+        }
     }
 
     func decreaseProductQuantityInCart(cartProduct: CartProduct) {
-        CartHelper.decreaseProductQuantityInCart(cartProduct: cartProduct)
+        if !checkIsLoading() {
+            CartHelper.decreaseProductQuantityInCart(cartProduct: cartProduct)
+        }
     }
 
     func removeProductFromCart(cartProduct: CartProduct) {
-        CartHelper.removeProductFromCart(cartProduct: cartProduct)
+        if !checkIsLoading() {
+            CartHelper.removeProductFromCart(cartProduct: cartProduct)
+        }
     }
 
     @objc private func userDefaultsDidChange(_ notification: Notification) {
@@ -60,5 +80,9 @@ final class CartViewModel {
     private func calculateTotalPrice() {
         let totalPriceValue = cartData.value?.reduce(0, { $0 + ($1.totalPrice) })
         totalPrice.value = String(format: "$%.02f", totalPriceValue ?? 0)
+    }
+
+    private func checkIsLoading() -> Bool {
+        return isLoading.value ?? false
     }
 }

@@ -45,7 +45,7 @@ class CartViewController: UIViewController {
         button.backgroundColor = Theme.Color.black
         button.setTitle("Checkout", for: .normal)
         button.setTitleColor(Theme.Color.white, for: .normal)
-        button.addTarget(self, action: #selector(completeButtonDidTap), for: .touchUpInside)
+        button.addTarget(self, action: #selector(checkoutButtonDidTap), for: .touchUpInside)
         return button
     }()
 
@@ -74,6 +74,13 @@ class CartViewController: UIViewController {
         return label
     }()
 
+    private lazy var activityIndicatorView: UIActivityIndicatorView = {
+        let activityIndicatorView = UIActivityIndicatorView()
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorView.color = .white
+        return activityIndicatorView
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Theme.Color.backgroundColor
@@ -86,8 +93,8 @@ class CartViewController: UIViewController {
         updateUIBasedOnCart()
     }
 
-    @objc private func completeButtonDidTap() {
-        print("completeButtonDidTap")
+    @objc private func checkoutButtonDidTap() {
+        model.checkout()
     }
 }
 
@@ -116,6 +123,22 @@ extension CartViewController {
                         return
                     }
             }
+        }
+
+        model.isLoading.bind { [weak self] isLoading in
+            if isLoading == true {
+                self?.checkoutButton.isEnabled = false
+                self?.checkoutButton.setTitle("", for: .normal)
+                self?.activityIndicatorView.startAnimating()
+            } else {
+                self?.checkoutButton.isEnabled = true
+                self?.activityIndicatorView.stopAnimating()
+                self?.checkoutButton.setTitle("Checkout", for: .normal)
+            }
+        }
+
+        model.onComplete = {
+            self.coordinator?.goToSuccess()
         }
     }
 }
@@ -247,6 +270,7 @@ extension CartViewController {
         cartInfoView.addSubview(totalPriceTitleLabel)
         cartInfoView.addSubview(totalPriceValueLabel)
         cartInfoView.addSubview(checkoutButton)
+        checkoutButton.addSubview(activityIndicatorView)
     }
 
     private func configureConstraints() {
@@ -282,10 +306,16 @@ extension CartViewController {
             checkoutButton.heightAnchor.constraint(equalToConstant: 35)
         ]
 
+        let activityIndicatorViewConstraints = [
+            activityIndicatorView.centerXAnchor.constraint(equalTo: checkoutButton.centerXAnchor),
+            activityIndicatorView.centerYAnchor.constraint(equalTo: checkoutButton.centerYAnchor)
+        ]
+
         NSLayoutConstraint.activate(cartInfoViewConstraints)
         NSLayoutConstraint.activate(tableViewConstraints)
         NSLayoutConstraint.activate(totalPriceTitleLabelConstraints)
         NSLayoutConstraint.activate(totalPriceValueLabelConstraints)
         NSLayoutConstraint.activate(checkoutButtonConstraints)
+        NSLayoutConstraint.activate(activityIndicatorViewConstraints)
     }
 }
