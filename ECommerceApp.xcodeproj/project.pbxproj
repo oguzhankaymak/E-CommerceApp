@@ -19,6 +19,8 @@
 		E228722A29E1C598008D22D6 /* SkeletonGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E228722929E1C598008D22D6 /* SkeletonGradientLayer.swift */; };
 		E236223C29EB565F00B5E640 /* ProductCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E236223B29EB565F00B5E640 /* ProductCardViewModel.swift */; };
 		E236223E29EB5C2F00B5E640 /* CartHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E236223D29EB5C2F00B5E640 /* CartHelper.swift */; };
+		E2396DFD29F4484B00814E79 /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2396DFC29F4484B00814E79 /* SuccessViewController.swift */; };
+		E2396DFF29F450A500814E79 /* SuccessCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2396DFE29F450A500814E79 /* SuccessCoordinator.swift */; };
 		E23FA6ED29D2DB3600FCF557 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FA6EC29D2DB3600FCF557 /* Coordinator.swift */; };
 		E23FA6EF29D2DB5900FCF557 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FA6EE29D2DB5900FCF557 /* AppCoordinator.swift */; };
 		E23FA6F129D2DB7800FCF557 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23FA6F029D2DB7800FCF557 /* TabBarCoordinator.swift */; };
@@ -83,6 +85,8 @@
 		E228722929E1C598008D22D6 /* SkeletonGradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonGradientLayer.swift; sourceTree = "<group>"; };
 		E236223B29EB565F00B5E640 /* ProductCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCardViewModel.swift; sourceTree = "<group>"; };
 		E236223D29EB5C2F00B5E640 /* CartHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartHelper.swift; sourceTree = "<group>"; };
+		E2396DFC29F4484B00814E79 /* SuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
+		E2396DFE29F450A500814E79 /* SuccessCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessCoordinator.swift; sourceTree = "<group>"; };
 		E23FA6EC29D2DB3600FCF557 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		E23FA6EE29D2DB5900FCF557 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		E23FA6F029D2DB7800FCF557 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
@@ -467,6 +471,7 @@
 			isa = PBXGroup;
 			children = (
 				E2CFAFCC29E21E2F0097BE35 /* ProductDetailViewController.swift */,
+				E2396DFC29F4484B00814E79 /* SuccessViewController.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -492,6 +497,7 @@
 			isa = PBXGroup;
 			children = (
 				E2CFAFCF29E223480097BE35 /* ProductDetailCoordinator.swift */,
+				E2396DFE29F450A500814E79 /* SuccessCoordinator.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -618,6 +624,7 @@
 				E26AA70529F12A3C0095B281 /* CartProductTableViewCellViewModel.swift in Sources */,
 				E29C0FDB29D85C4600A5A4D5 /* UIColor+Extensions.swift in Sources */,
 				E24F3F3629F0D4F50064EF4F /* Warning.swift in Sources */,
+				E2396DFD29F4484B00814E79 /* SuccessViewController.swift in Sources */,
 				E2C6C3A829D9B3F700624DE7 /* APIConstants.swift in Sources */,
 				E21DAC3029DA75C800099B8C /* ProductCollectionViewCellViewModel.swift in Sources */,
 				E2BCACC629EAFCC700D1C317 /* ToString.swift in Sources */,
@@ -635,6 +642,7 @@
 				E2AC78CC29D5B63F0027A847 /* ProductCollectionReusableHeaderView.swift in Sources */,
 				E2C6C3AD29D9B46000624DE7 /* Product.swift in Sources */,
 				E2DFA37E29DFBB1D007DFFC6 /* ProductCardSkeletonView.swift in Sources */,
+				E2396DFF29F450A500814E79 /* SuccessCoordinator.swift in Sources */,
 				E23FA71429D3091900FCF557 /* ProductCategoryCellViewModel.swift in Sources */,
 				E285044029D41ABA00F378F6 /* Observable.swift in Sources */,
 				E29D16F729E7E8110039E3B8 /* CartProduct.swift in Sources */,
