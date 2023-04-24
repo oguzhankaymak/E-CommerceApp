@@ -37,7 +37,6 @@ class HomeViewController: UIViewController {
         subscribeToModel()
         configureConstraints()
         model.getProducts(limit: 30)
-
     }
 }
 
@@ -80,7 +79,7 @@ extension HomeViewController:
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if model.isLoading.value ?? false {
+        if model.isLoading.value ?? true {
             return 2
         } else {
             switch section {
@@ -99,7 +98,7 @@ extension HomeViewController:
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
 
-        if model.isLoading.value ?? false {
+        if model.isLoading.value ?? true {
 
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: ProductCollectionSkeletonViewCell.identifier,
@@ -206,7 +205,6 @@ extension HomeViewController: ProductCollectionReusableHeaderViewDelegate {
 
 extension HomeViewController: ProductCollectionViewCellDelegate {
     func productBuyButtonDidTap(product: Product) {
-
         model.addProductToCart(product: product)
     }
 }

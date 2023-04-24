@@ -30,7 +30,6 @@ final class HomeViewModel {
     }
 
     func addProductToCart(product: Product) {
-
         let cartProduct = CartProduct(
             productId: product.id,
             unitPrice: product.price,

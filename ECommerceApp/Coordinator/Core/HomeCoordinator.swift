@@ -18,7 +18,6 @@ class HomeCoordinator: Coordinator, HomeCoordinatorProtocol {
         navigationController?.pushViewController(homeViewController, animated: false)
     }
 
-    // MARK: - FLOWS
     func goToProductDetail(product: Product) {
         let productDetailCoordinator = ProductDetailCoordinator(
             navigationController: navigationController ?? UINavigationController(),
@@ -27,5 +26,4 @@ class HomeCoordinator: Coordinator, HomeCoordinatorProtocol {
 
         coordinate(to: productDetailCoordinator)
     }
-
 }
