@@ -91,19 +91,28 @@ class CompositionalLayoutSectionHelper {
 
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
+        section.contentInsets.top = 10
 
-        let sectionHeaderItemSize = NSCollectionLayoutSize(
+        return section
+    }
+
+    static func createSearchProductSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(0.5),
+            heightDimension: .absolute(300)
+        )
+
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets.top = 30
+
+        let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(60)
+            heightDimension: .absolute(300)
         )
 
-        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-            layoutSize: sectionHeaderItemSize,
-            elementKind: CollectionSectionHeaderView.kind,
-            alignment: .topLeading
-        )
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
 
-        section.boundarySupplementaryItems = [sectionHeader]
+        let section = NSCollectionLayoutSection(group: group)
 
         return section
     }

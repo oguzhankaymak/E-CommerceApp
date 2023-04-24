@@ -1,4 +1,5 @@
 import UIKit
+import OrderedCollections
 
 class SearchViewController: UIViewController {
 
@@ -8,9 +9,21 @@ class SearchViewController: UIViewController {
 
     let myArray = ["All", "Electronics", "Jewelery", "Men's clothing", "Women's clothing"]
 
+    let sections: OrderedDictionary<String, NSCollectionLayoutSection> = [
+        "Category": CompositionalLayoutSectionHelper.createProductCategoriesSection(),
+        "Product": CompositionalLayoutSectionHelper.createSearchProductSection()
+    ]
+
     private lazy var collectionView: UICollectionView = {
-        let section = CompositionalLayoutSectionHelper.createProductCategoriesSection()
-        let layout = UICollectionViewCompositionalLayout(section: section)
+        let layout = UICollectionViewCompositionalLayout { (sectionIndex, _ ) in
+
+            switch sectionIndex {
+            case 0, 1:
+                return self.sections.elements[sectionIndex].value
+            default:
+                return nil
+            }
+        }
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -26,6 +39,7 @@ class SearchViewController: UIViewController {
         configureCollectionView()
         configureConstraints()
         subscribeToModel()
+        model.getProducts(limit: 30)
     }
 }
 
@@ -36,14 +50,18 @@ extension SearchViewController {
         collectionView.delegate = self
 
         collectionView.register(
+            ProductCollectionSkeletonViewCell.self,
+            forCellWithReuseIdentifier: ProductCollectionSkeletonViewCell.identifier
+        )
+
+        collectionView.register(
             ProductCategoryCollectionViewCell.self,
             forCellWithReuseIdentifier: ProductCategoryCollectionViewCell.identifier
         )
 
         collectionView.register(
-            CollectionSectionHeaderView.self,
-            forSupplementaryViewOfKind: CollectionSectionHeaderView.kind,
-            withReuseIdentifier: CollectionSectionHeaderView.identifier
+            ProductCollectionViewCell.self,
+            forCellWithReuseIdentifier: ProductCollectionViewCell.identifier
         )
     }
 }
@@ -53,58 +71,93 @@ extension SearchViewController:
     UICollectionViewDataSource, UICollectionViewDelegate {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return sections.count
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return myArray.count
+        if model.isLoading.value ?? true {
+            return 4
+        } else {
+            switch section {
+            case 0:
+                return myArray.count
+            case 1:
+                return model.products.value?.count ?? 0
+            default:
+                return 0
+            }
+        }
     }
 
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        switch indexPath.section {
-        case 0:
+
+        if model.isLoading.value ?? true && indexPath.section == 1 {
+
             guard let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: ProductCategoryCollectionViewCell.identifier,
+                withReuseIdentifier: ProductCollectionSkeletonViewCell.identifier,
                 for: indexPath
-            ) as? ProductCategoryCollectionViewCell else {
+            ) as? ProductCollectionSkeletonViewCell else {
                 return UICollectionViewCell()
             }
 
-            let currentCategory = myArray[indexPath.row]
-
-            cell.configureModel(
-                with: ProductCategoryCellViewModel(
-                    title: currentCategory,
-                    isCurrentCategory: model.activeCategory.value == currentCategory)
-            )
-
-            cell.delegate = self
             return cell
-        default:
-            return UICollectionViewCell()
+
+        } else {
+            switch indexPath.section {
+            case 0:
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: ProductCategoryCollectionViewCell.identifier,
+                    for: indexPath
+                ) as? ProductCategoryCollectionViewCell else {
+                    return UICollectionViewCell()
+                }
+
+                let currentCategory = myArray[indexPath.row]
+
+                cell.configureModel(
+                    with: ProductCategoryCellViewModel(
+                        title: currentCategory,
+                        isCurrentCategory: model.activeCategory.value == currentCategory
+                    )
+                )
+
+                cell.delegate = self
+                return cell
+
+            case 1:
+                guard let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: ProductCollectionViewCell.identifier,
+                    for: indexPath
+                ) as? ProductCollectionViewCell,
+                      let currentProduct = model.products.value?[indexPath.row]
+                else {
+                    return UICollectionViewCell()
+                }
+
+                cell.configureModel(product: currentProduct)
+
+                cell.delegate = self
+                return cell
+            default:
+                return UICollectionViewCell()
+            }
         }
+
     }
 
-    func collectionView(
-        _ collectionView: UICollectionView,
-        viewForSupplementaryElementOfKind kind: String,
-        at indexPath: IndexPath
-    ) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let currentProduct = model.products.value?[indexPath.row] else { return }
+        coordinator?.goToProductDetail(product: currentProduct)
+    }
+}
 
-        guard let supplementaryView = collectionView.dequeueReusableSupplementaryView(
-            ofKind: kind,
-            withReuseIdentifier: CollectionSectionHeaderView.identifier,
-            for: indexPath
-        ) as? CollectionSectionHeaderView else {
-            return UICollectionReusableView()
-        }
-
-        supplementaryView.configureModel(with: "Categories")
-
-        return supplementaryView
+// MARK: - ProductCollectionViewCellDelegate
+extension SearchViewController: ProductCollectionViewCellDelegate {
+    func productBuyButtonDidTap(product: Product) {
+        model.addProductToCart(product: product)
     }
 }
 
@@ -118,7 +171,12 @@ extension SearchViewController: ProductCategoryCollectionViewCellDelegate {
 // MARK: - SubscribeToModel
 extension SearchViewController {
     func subscribeToModel() {
+
         model.activeCategory.bind { [weak self]  _ in
+            self?.collectionView.reloadData()
+        }
+
+        model.isLoading.bind { [weak self] _ in
             self?.collectionView.reloadData()
         }
     }
