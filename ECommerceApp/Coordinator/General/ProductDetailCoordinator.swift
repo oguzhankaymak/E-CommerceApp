@@ -19,11 +19,13 @@ class ProductDetailCoordinator: Coordinator, ProductDetailCoordinatorProtocol {
         productDetailViewController.product = product
         productDetailViewController.coordinator = self
         productDetailViewController.hidesBottomBarWhenPushed = true
+        navigationController?.isNavigationBarHidden = true
         navigationController?.pushViewController(productDetailViewController, animated: true)
     }
 
     // MARK: - FLOWS
     func goBack() {
+        navigationController?.isNavigationBarHidden = false
         navigationController?.popViewController(animated: true)
     }
 }

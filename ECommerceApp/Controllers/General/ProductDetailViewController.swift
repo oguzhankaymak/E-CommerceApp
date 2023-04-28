@@ -36,7 +36,6 @@ class ProductDetailViewController: UIViewController {
         addUIElements()
         configureCarouselCollectionView()
         configureViews()
-        configureNavigationBar()
         configureConstraints()
         subscribeToModel()
     }
@@ -80,10 +79,6 @@ extension ProductDetailViewController {
 
 // MARK: - ConfigureNavigationBar
 extension ProductDetailViewController {
-
-    private func configureNavigationBar() {
-        navigationController?.isNavigationBarHidden = true
-    }
 
     @objc private func goBack() {
         coordinator?.goBack()
