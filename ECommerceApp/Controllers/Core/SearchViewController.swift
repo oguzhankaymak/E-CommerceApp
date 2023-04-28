@@ -1,29 +1,23 @@
 import UIKit
-import OrderedCollections
 
 class SearchViewController: UIViewController {
 
     var coordinator: SearchCoordinatorProtocol?
-
     var model: SearchViewModel!
 
-    let myArray = ["All", "Electronics", "Jewelery", "Men's clothing", "Women's clothing"]
+    private lazy var categoryScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
+    }()
 
-    let sections: OrderedDictionary<String, NSCollectionLayoutSection> = [
-        "Category": CompositionalLayoutSectionHelper.createProductCategoriesSection(),
-        "Product": CompositionalLayoutSectionHelper.createSearchProductSection()
-    ]
+    private lazy var categoryStackView = ProductCategoryStackView()
 
     private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewCompositionalLayout { (sectionIndex, _ ) in
-
-            switch sectionIndex {
-            case 0, 1:
-                return self.sections.elements[sectionIndex].value
-            default:
-                return nil
-            }
-        }
+        let layout = UICollectionViewCompositionalLayout(
+            section: CompositionalLayoutSectionHelper.createSearchProductSection()
+        )
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +33,24 @@ class SearchViewController: UIViewController {
         configureCollectionView()
         configureConstraints()
         subscribeToModel()
+        model.getCategories()
         model.getProducts(limit: 30)
+        categoryStackView.delegate = self
+    }
+
+    private func scrollViewScrollToSpecificIndex(categoryIndex: Int) {
+        let selectedCategoryView = self.categoryStackView.arrangedSubviews[categoryIndex]
+        let selectedCategoryViewFrame = selectedCategoryView.convert(
+            selectedCategoryView.bounds,
+            to: self.categoryScrollView
+        )
+
+        let newContentOffset = CGPoint(
+            x: selectedCategoryViewFrame.origin.x - 10,
+            y: 0
+        )
+
+        self.categoryScrollView.setContentOffset(newContentOffset, animated: true)
     }
 }
 
@@ -55,11 +66,6 @@ extension SearchViewController {
         )
 
         collectionView.register(
-            ProductCategoryCollectionViewCell.self,
-            forCellWithReuseIdentifier: ProductCategoryCollectionViewCell.identifier
-        )
-
-        collectionView.register(
             ProductCollectionViewCell.self,
             forCellWithReuseIdentifier: ProductCollectionViewCell.identifier
         )
@@ -70,22 +76,11 @@ extension SearchViewController {
 extension SearchViewController:
     UICollectionViewDataSource, UICollectionViewDelegate {
 
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return sections.count
-    }
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if model.isLoading.value ?? true {
+        if model.isProductLoading.value ?? true {
             return 4
         } else {
-            switch section {
-            case 0:
-                return myArray.count
-            case 1:
-                return model.products.value?.count ?? 0
-            default:
-                return 0
-            }
+            return model.products.value?.count ?? 0
         }
     }
 
@@ -94,8 +89,7 @@ extension SearchViewController:
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
 
-        if model.isLoading.value ?? true && indexPath.section == 1 {
-
+        if model.isProductLoading.value ?? true {
             guard let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: ProductCollectionSkeletonViewCell.identifier,
                 for: indexPath
@@ -106,44 +100,19 @@ extension SearchViewController:
             return cell
 
         } else {
-            switch indexPath.section {
-            case 0:
-                guard let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: ProductCategoryCollectionViewCell.identifier,
-                    for: indexPath
-                ) as? ProductCategoryCollectionViewCell else {
-                    return UICollectionViewCell()
-                }
-
-                let currentCategory = myArray[indexPath.row]
-
-                cell.configureModel(
-                    with: ProductCategoryCellViewModel(
-                        title: currentCategory,
-                        isCurrentCategory: model.activeCategory.value == currentCategory
-                    )
-                )
-
-                cell.delegate = self
-                return cell
-
-            case 1:
-                guard let cell = collectionView.dequeueReusableCell(
-                    withReuseIdentifier: ProductCollectionViewCell.identifier,
-                    for: indexPath
-                ) as? ProductCollectionViewCell,
-                      let currentProduct = model.products.value?[indexPath.row]
-                else {
-                    return UICollectionViewCell()
-                }
-
-                cell.configureModel(product: currentProduct)
-
-                cell.delegate = self
-                return cell
-            default:
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: ProductCollectionViewCell.identifier,
+                for: indexPath
+            ) as? ProductCollectionViewCell,
+                  let currentProduct = model.products.value?[indexPath.row]
+            else {
                 return UICollectionViewCell()
             }
+
+            cell.configureModel(product: currentProduct)
+
+            cell.delegate = self
+            return cell
         }
 
     }
@@ -161,23 +130,50 @@ extension SearchViewController: ProductCollectionViewCellDelegate {
     }
 }
 
-// MARK: - ProductCategoryCollectionViewCellDelegate
-extension SearchViewController: ProductCategoryCollectionViewCellDelegate {
-    func productCategoryButtonDidTap(category: String) {
-        model.changeActiveCategory(category: category)
+// MARK: - ProductCategoryStackViewDelegate
+extension SearchViewController: ProductCategoryStackViewDelegate {
+    func productCategoryButtonDidTap(categoryIndex: Int) {
+        model.changeActiveCategory(categoryIndex: categoryIndex)
     }
 }
 
 // MARK: - SubscribeToModel
 extension SearchViewController {
     func subscribeToModel() {
+        model.categories.bind { [weak self] categories in
+            guard let categories = categories,
+                  let activeCategoryIndex = self?.model.activeCategoryIndex.value else {
+                return
+            }
 
-        model.activeCategory.bind { [weak self]  _ in
+            self?.categoryStackView.addArrangedCategories(
+                activeCategoryIndex: activeCategoryIndex,
+                categories: categories
+            )
+        }
+
+        model.isProductLoading.bind { [weak self] _ in
             self?.collectionView.reloadData()
         }
 
-        model.isLoading.bind { [weak self] _ in
-            self?.collectionView.reloadData()
+        model.isCategoryLoading.bind { [weak self] isLoading in
+            if isLoading ?? true {
+                self?.categoryStackView.showLoading()
+            }
+        }
+
+        model.activeCategoryIndex.bind { [weak self] activeCategoryIndex in
+            guard let activeCategoryIndex = activeCategoryIndex, let stackView = self?.categoryStackView else { return }
+
+            for subView in stackView.arrangedSubviews {
+                if let button = subView as? UIButton {
+                    let isActiveCategory = activeCategoryIndex == button.tag
+                    button.backgroundColor = isActiveCategory ? Theme.Color.black : Theme.Color.white
+                    button.setTitleColor(isActiveCategory ? Theme.Color.white : Theme.Color.black, for: .normal)
+                }
+            }
+
+            self?.scrollViewScrollToSpecificIndex(categoryIndex: activeCategoryIndex)
         }
     }
 }
@@ -186,18 +182,37 @@ extension SearchViewController {
 extension SearchViewController {
 
     private func addUIElements() {
+        view.addSubview(categoryScrollView)
+        categoryScrollView.addSubview(categoryStackView)
         view.addSubview(collectionView)
     }
 
     private func configureConstraints() {
+        let scrollViewHeight = CGFloat(40)
+
+        let categoryScrollViewConstraints = [
+            categoryScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            categoryScrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            categoryScrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            categoryScrollView.heightAnchor.constraint(equalToConstant: scrollViewHeight)
+        ]
+
+        let categoryStackViewConstraints = [
+            categoryStackView.topAnchor.constraint(equalTo: categoryScrollView.topAnchor),
+            categoryStackView.leadingAnchor.constraint(equalTo: categoryScrollView.leadingAnchor, constant: 8),
+            categoryStackView.trailingAnchor.constraint(equalTo: categoryScrollView.trailingAnchor, constant: -8),
+            categoryStackView.heightAnchor.constraint(equalToConstant: scrollViewHeight - 10)
+        ]
 
         let collectionViewConstraints = [
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.topAnchor.constraint(equalTo: categoryScrollView.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ]
 
+        NSLayoutConstraint.activate(categoryScrollViewConstraints)
+        NSLayoutConstraint.activate(categoryStackViewConstraints)
         NSLayoutConstraint.activate(collectionViewConstraints)
     }
 }
