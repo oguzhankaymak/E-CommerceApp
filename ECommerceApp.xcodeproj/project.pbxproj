@@ -349,13 +349,6 @@
 			path = ProductCard;
 			sourceTree = "<group>";
 		};
-		E252661C29DC2C1600912AA1 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		E252769629F64ABC003CB967 /* Product */ = {
 			isa = PBXGroup;
 			children = (
@@ -474,7 +467,6 @@
 		E2C6C3A429D9B3D800624DE7 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				E252661C29DC2C1600912AA1 /* Models */,
 				E2C6C3A529D9B3EA00624DE7 /* APICaller.swift */,
 				E2C6C3A729D9B3F700624DE7 /* APIConstants.swift */,
 				E2C6C3A929D9B40000624DE7 /* APIError.swift */,

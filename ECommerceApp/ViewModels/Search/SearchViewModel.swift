@@ -11,15 +11,16 @@ final class SearchViewModel {
     init() {
         self.activeCategoryIndex.value = 0
     }
+}
 
-    // MARK: - Public Methods
+// MARK: - Public Methods
+extension SearchViewModel {
     func getProducts(limit: Int?) {
         self.isProductLoading.value = true
         APICaller.shared.getProducts(limit: limit) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let productResponse):
-
                     self?.products.value = productResponse.products
                     self?.isProductLoading.value = false
 
@@ -52,6 +53,13 @@ final class SearchViewModel {
 
     func changeActiveCategory(categoryIndex: Int) {
         activeCategoryIndex.value = categoryIndex
+
+        if categoryIndex == 0 {
+            getProducts(limit: 30)
+        } else {
+            guard let categories = categories.value else { return }
+            getProductsOfCategory(category: categories[categoryIndex])
+        }
     }
 
     func addProductToCart(product: Product) {
@@ -68,5 +76,25 @@ final class SearchViewModel {
         )
 
         CartHelper.addProductToCart(cartProduct: cartProduct)
+    }
+}
+
+// Private methods
+extension SearchViewModel {
+    func getProductsOfCategory(category: String) {
+        self.isProductLoading.value = true
+        APICaller.shared.getProductsOfCategory(category: category) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let productResponse):
+                    self?.products.value = productResponse.products
+                    self?.isProductLoading.value = false
+
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self?.isProductLoading.value = false
+                }
+            }
+        }
     }
 }
