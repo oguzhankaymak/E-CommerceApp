@@ -26,8 +26,8 @@ struct APICaller {
         task.resume()
     }
 
-    public func getProductDetail(with productId: Int, completion: @escaping (Result<Product, Error>) -> Void) {
-        guard let url = URL(string: "\(Constants.baseAPIURL)/products/\(productId)") else {
+    public func getCategories(completion: @escaping (Result<CategoryResponse, Error>) -> Void) {
+        guard let url = URL(string: "\(Constants.baseAPIURL)/products/categories") else {
             return
         }
 
@@ -38,8 +38,9 @@ struct APICaller {
             }
 
             do {
-                let result = try JSONDecoder().decode(Product.self, from: data)
-                completion(.success(result))
+                let result = try JSONDecoder().decode([String].self, from: data)
+                let categoryResponse = CategoryResponse(categories: result)
+                completion(.success(categoryResponse))
             } catch {
                 completion(.failure(error))
             }
