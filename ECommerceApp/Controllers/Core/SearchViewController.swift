@@ -5,6 +5,28 @@ class SearchViewController: UIViewController {
     var coordinator: SearchCoordinatorProtocol?
     var model: SearchViewModel!
 
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.placeholder = "Search"
+        searchBar.searchBarStyle = .minimal
+
+        let toolbar = UIToolbar(
+            frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 44)
+        )
+
+        let doneButton = UIBarButtonItem(
+            title: "Done",
+            style: .done,
+            target: self,
+            action: #selector(doneButtonTapped)
+        )
+
+        toolbar.items = [UIBarButtonItem.flexibleSpace(), doneButton]
+        searchBar.inputAccessoryView = toolbar
+        return searchBar
+    }()
+
     private lazy var categoryScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -36,6 +58,10 @@ class SearchViewController: UIViewController {
         model.getCategories()
         model.getProducts(limit: 30)
         categoryStackView.delegate = self
+    }
+
+    @objc func doneButtonTapped() {
+        searchBar.resignFirstResponder()
     }
 
     private func scrollViewScrollToSpecificIndex(categoryIndex: Int) {
@@ -182,6 +208,7 @@ extension SearchViewController {
 extension SearchViewController {
 
     private func addUIElements() {
+        view.addSubview(searchBar)
         view.addSubview(categoryScrollView)
         categoryScrollView.addSubview(categoryStackView)
         view.addSubview(collectionView)
@@ -190,8 +217,15 @@ extension SearchViewController {
     private func configureConstraints() {
         let scrollViewHeight = CGFloat(40)
 
+        let searchBarConstraints = [
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            searchBar.heightAnchor.constraint(equalToConstant: 40)
+        ]
+
         let categoryScrollViewConstraints = [
-            categoryScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            categoryScrollView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 20),
             categoryScrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             categoryScrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             categoryScrollView.heightAnchor.constraint(equalToConstant: scrollViewHeight)
@@ -211,6 +245,7 @@ extension SearchViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ]
 
+        NSLayoutConstraint.activate(searchBarConstraints)
         NSLayoutConstraint.activate(categoryScrollViewConstraints)
         NSLayoutConstraint.activate(categoryStackViewConstraints)
         NSLayoutConstraint.activate(collectionViewConstraints)
