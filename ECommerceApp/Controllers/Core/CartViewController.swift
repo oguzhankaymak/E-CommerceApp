@@ -49,30 +49,9 @@ class CartViewController: UIViewController {
         return button
     }()
 
-    private lazy var emptyDataView: UIView = {
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: tableView.bounds.height))
-        return view
-    }()
-
-    private lazy var emptyDataIconView: UIImageView = {
-        let image = UIImage(
-            systemName: "cart.badge.plus",
-            withConfiguration: UIImage.SymbolConfiguration(pointSize: 24)
-        )?.withTintColor(Theme.Color.lightGrey, renderingMode: .alwaysOriginal)
-
-        let imageView = UIImageView(image: image)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-
-    private lazy var emptyDataLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = Theme.AppFont.productInfo
-        label.text = "Your cart is empty"
-        label.textColor = Theme.Color.lightGrey
-        return label
-    }()
+    private lazy var emptyDataIconView = EmptyDataIconView(
+        frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: tableView.bounds.height)
+    )
 
     private lazy var activityIndicatorView: UIActivityIndicatorView = {
         let activityIndicatorView = UIActivityIndicatorView()
@@ -236,30 +215,40 @@ extension CartViewController: CartProductTableViewCellDelegate {
     }
 }
 
+// MARK: - EmptyDataIconView
+extension CartViewController {
+    private func showEmptyDataIconView() {
+        if tableView.backgroundView == nil {
+            emptyDataIconView.configure(
+                model: EmptyDataIconViewModel(
+                    title: "Your cart is empty",
+                    imageKey: "cart.badge.plus"
+                )
+            )
+
+            tableView.backgroundView = emptyDataIconView
+        }
+    }
+
+    private func hideEmptyDataIconView() {
+        if tableView.backgroundView != nil {
+            tableView.backgroundView = nil
+        }
+    }
+}
+
 // MARK: - ConfigureConstraints
 extension CartViewController {
-
     private func updateUIBasedOnCart() {
-
         if let data = model.cartData.value {
             if data.isEmpty {
                 navigationItem.rightBarButtonItem?.isHidden = true
                 cartInfoView.isHidden = true
-                emptyDataView.addSubview(emptyDataIconView)
-                emptyDataView.addSubview(emptyDataLabel)
-
-                NSLayoutConstraint.activate([
-                    emptyDataIconView.centerYAnchor.constraint(equalTo: emptyDataView.centerYAnchor, constant: -20),
-                    emptyDataIconView.centerXAnchor.constraint(equalTo: emptyDataView.centerXAnchor),
-                    emptyDataLabel.topAnchor.constraint(equalTo: emptyDataIconView.bottomAnchor, constant: 20),
-                    emptyDataLabel.centerXAnchor.constraint(equalTo: emptyDataView.centerXAnchor)
-                ])
-
-                tableView.backgroundView = emptyDataView
+                showEmptyDataIconView()
             } else {
                 navigationItem.rightBarButtonItem?.isHidden = false
                 cartInfoView.isHidden = false
-                tableView.backgroundView = nil
+                hideEmptyDataIconView()
             }
         }
     }

@@ -47,6 +47,10 @@ class SearchViewController: UIViewController {
         return collectionView
     }()
 
+    private lazy var emptyDataIconView = EmptyDataIconView(
+        frame: CGRect(x: 0, y: 0, width: collectionView.bounds.width, height: collectionView.bounds.height)
+    )
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Theme.Color.backgroundColor
@@ -59,10 +63,6 @@ class SearchViewController: UIViewController {
         model.getProducts()
         categoryStackView.delegate = self
         searchBar.delegate = self
-    }
-
-    @objc func doneButtonTapped() {
-        searchBar.resignFirstResponder()
     }
 
     private func scrollViewScrollToSpecificIndex(categoryIndex: Int) {
@@ -85,6 +85,10 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         model.searchProducts(text: searchText)
+    }
+
+    @objc func doneButtonTapped() {
+        searchBar.resignFirstResponder()
     }
 }
 
@@ -171,6 +175,28 @@ extension SearchViewController: ProductCategoryStackViewDelegate {
     }
 }
 
+// MARK: - EmptyDataIconView
+extension SearchViewController {
+    private func showEmptyDataIconView() {
+        if collectionView.backgroundView == nil {
+            emptyDataIconView.configure(
+                model: EmptyDataIconViewModel(
+                    title: "Product not found",
+                    imageKey: "shippingbox.fill"
+                )
+            )
+
+            collectionView.backgroundView = emptyDataIconView
+        }
+    }
+
+    private func hideEmptyDataIconView() {
+        if collectionView.backgroundView != nil {
+            collectionView.backgroundView = nil
+        }
+    }
+}
+
 // MARK: - SubscribeToModel
 extension SearchViewController {
     func subscribeToModel() {
@@ -184,6 +210,19 @@ extension SearchViewController {
                 activeCategoryIndex: activeCategoryIndex,
                 categories: categories
             )
+        }
+
+        model.products.bind { [weak self] products in
+            guard let products = products else {
+                self?.showEmptyDataIconView()
+                return
+            }
+
+            if products.isEmpty {
+                self?.showEmptyDataIconView()
+            } else {
+                self?.hideEmptyDataIconView()
+            }
         }
 
         model.isProductLoading.bind { [weak self] _ in
@@ -214,7 +253,6 @@ extension SearchViewController {
 
 // MARK: - Constraints
 extension SearchViewController {
-
     private func addUIElements() {
         view.addSubview(searchBar)
         view.addSubview(categoryScrollView)
