@@ -2,6 +2,7 @@ import UIKit
 
 protocol HomeCoordinatorProtocol {
     func goToProductDetail(product: Product)
+    func goToSearchProduct()
 }
 
 class HomeCoordinator: Coordinator, HomeCoordinatorProtocol {
@@ -25,5 +26,9 @@ class HomeCoordinator: Coordinator, HomeCoordinatorProtocol {
         )
 
         coordinate(to: productDetailCoordinator)
+    }
+
+    func goToSearchProduct() {
+        navigationController?.tabBarController?.selectedIndex = 1
     }
 }

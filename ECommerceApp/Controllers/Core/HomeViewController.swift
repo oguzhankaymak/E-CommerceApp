@@ -199,7 +199,7 @@ extension HomeViewController:
 
 extension HomeViewController: ProductCollectionReusableHeaderViewDelegate {
     func exploreButtonDidTap() {
-        print("exploreButtonDidTap")
+        coordinator?.goToSearchProduct()
     }
 }
 
