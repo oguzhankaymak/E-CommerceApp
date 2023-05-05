@@ -5,9 +5,9 @@ final class HomeViewModel {
     private(set) var hotSalesProducts = Observable<[Product]>()
     private(set) var recommendProducts = Observable<[Product]>()
 
-    func getProducts(limit: Int?) {
+    func getProducts() {
         self.isLoading.value = true
-        APICaller.shared.getProducts(limit: limit) { [weak self] result in
+        APICaller.shared.getProducts { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let productResponse):

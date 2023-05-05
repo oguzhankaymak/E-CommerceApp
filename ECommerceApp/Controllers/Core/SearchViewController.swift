@@ -56,7 +56,7 @@ class SearchViewController: UIViewController {
         configureConstraints()
         subscribeToModel()
         model.getCategories()
-        model.getProducts(limit: 30)
+        model.getProducts()
         categoryStackView.delegate = self
     }
 

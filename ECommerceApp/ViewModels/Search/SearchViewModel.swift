@@ -15,7 +15,7 @@ final class SearchViewModel {
 
 // MARK: - Public Methods
 extension SearchViewModel {
-    func getProducts(limit: Int?) {
+    func getProducts() {
         self.isProductLoading.value = true
         APICaller.shared.getProducts(limit: limit) { [weak self] result in
             DispatchQueue.main.async {
@@ -55,7 +55,7 @@ extension SearchViewModel {
         activeCategoryIndex.value = categoryIndex
 
         if categoryIndex == 0 {
-            getProducts(limit: 30)
+            getProducts()
         } else {
             guard let categories = categories.value else { return }
             getProductsOfCategory(category: categories[categoryIndex])

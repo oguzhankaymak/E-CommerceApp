@@ -36,7 +36,7 @@ class HomeViewController: UIViewController {
         configureCollectionView()
         subscribeToModel()
         configureConstraints()
-        model.getProducts(limit: 30)
+        model.getProducts()
     }
 }
 

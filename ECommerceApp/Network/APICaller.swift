@@ -5,8 +5,14 @@ struct APICaller {
 
     private init() {}
 
-    public func getProducts(limit: Int?, completion: @escaping (Result<ProductResponse, Error>) -> Void) {
-        guard let url = URL(string: "\(Constants.baseAPIURL)/products") else {
+    public func getProducts(category: String? = nil, completion: @escaping (Result<ProductResponse, Error>) -> Void) {
+        var urlStr = "\(Constants.baseAPIURL)/products"
+
+        if let category = category {
+            urlStr += "/category/\(category)"
+        }
+
+        guard let url = URL(string: urlStr) else {
             return
         }
 
@@ -48,11 +54,10 @@ struct APICaller {
         task.resume()
     }
 
-    public func getProductsOfCategory(
-        category: String,
-        completion: @escaping (Result<ProductResponse, Error>
-        ) -> Void) {
-        guard let url = URL(string: "\(Constants.baseAPIURL)/products/category/\(category)") else {
+    public func searchProducts(text: String, completion: @escaping (Result<ProductResponse, Error>) -> Void) {
+        let urlStr = "\(Constants.baseAPIURL)/products/search?q=\(text)"
+
+        guard let url = URL(string: urlStr) else {
             return
         }
 
