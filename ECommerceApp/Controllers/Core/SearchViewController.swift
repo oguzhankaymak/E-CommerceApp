@@ -58,6 +58,7 @@ class SearchViewController: UIViewController {
         model.getCategories()
         model.getProducts()
         categoryStackView.delegate = self
+        searchBar.delegate = self
     }
 
     @objc func doneButtonTapped() {
@@ -77,6 +78,13 @@ class SearchViewController: UIViewController {
         )
 
         self.categoryScrollView.setContentOffset(newContentOffset, animated: true)
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension SearchViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        model.searchProducts(text: searchText)
     }
 }
 

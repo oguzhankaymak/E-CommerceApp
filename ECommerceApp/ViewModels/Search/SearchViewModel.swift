@@ -4,6 +4,7 @@ final class SearchViewModel {
 
     private(set) var isProductLoading = Observable<Bool>()
     private(set) var products = Observable<[Product]>()
+    private(set) var initialProductData = Observable<[Product]>()
     private(set) var isCategoryLoading = Observable<Bool>()
     private(set) var activeCategoryIndex = Observable<Int>()
     private(set) var categories = Observable<[String]>()
@@ -17,10 +18,11 @@ final class SearchViewModel {
 extension SearchViewModel {
     func getProducts() {
         self.isProductLoading.value = true
-        APICaller.shared.getProducts(limit: limit) { [weak self] result in
+        APICaller.shared.getProducts { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let productResponse):
+                    self?.initialProductData.value = productResponse.products
                     self?.products.value = productResponse.products
                     self?.isProductLoading.value = false
 
@@ -48,6 +50,16 @@ extension SearchViewModel {
                     self?.isCategoryLoading.value = false
                 }
             }
+        }
+    }
+
+    func searchProducts(text: String) {
+        if text.count > 3 {
+            setInitialCategory()
+            getProductsByText(text: text)
+        } else {
+            setInitialCategory()
+            setInitialProducts()
         }
     }
 
@@ -81,9 +93,9 @@ extension SearchViewModel {
 
 // Private methods
 extension SearchViewModel {
-    func getProductsOfCategory(category: String) {
+    private func getProductsOfCategory(category: String) {
         self.isProductLoading.value = true
-        APICaller.shared.getProductsOfCategory(category: category) { [weak self] result in
+        APICaller.shared.getProducts(category: category) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let productResponse):
@@ -95,6 +107,37 @@ extension SearchViewModel {
                     self?.isProductLoading.value = false
                 }
             }
+        }
+    }
+
+    private func getProductsByText(text: String) {
+        self.isProductLoading.value = true
+        APICaller.shared.searchProducts(text: text) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let productResponse):
+                    self?.products.value = productResponse.products
+                    self?.isProductLoading.value = false
+
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    self?.isProductLoading.value = false
+                }
+            }
+        }
+    }
+
+    private func setInitialCategory() {
+        if activeCategoryIndex.value != 0 {
+            self.activeCategoryIndex.value = 0
+        }
+    }
+
+    private func setInitialProducts() {
+        if products.value != initialProductData.value {
+            self.isProductLoading.value = true
+            self.products.value = initialProductData.value
+            self.isProductLoading.value = false
         }
     }
 }
