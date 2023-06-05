@@ -8,7 +8,7 @@ final class Theme {
         static let small: CGFloat = 8
         static let normal: CGFloat = 12
         static let large: CGFloat = 18
-        static let extraLarge: CGFloat = 40
+        static let extraLarge: CGFloat = 25
     }
 }
 
@@ -24,6 +24,8 @@ extension Theme {
         static let darkGrey = UIColor.rgba(red: 239, green: 241, blue: 241, alpha: 1)
         static let lightGrey = UIColor.rgba(red: 201, green: 201, blue: 201, alpha: 1)
         static let secondaryBlack = UIColor.rgba(red: 0, green: 0, blue: 0, alpha: 0.8)
+        static let textFieldBackgroundColor: UIColor = .secondarySystemFill
+        static let label: UIColor = .label
     }
 
     enum BorderColor {
