@@ -1,9 +1,15 @@
 import Foundation
 
 final class HomeViewModel {
+    private let apiCaller: APICallerProtocol
+
     private(set) var isLoading = Observable<Bool>()
     private(set) var hotSalesProducts = Observable<[Product]>()
     private(set) var recommendProducts = Observable<[Product]>()
+
+    init(apiCaller: APICallerProtocol = APICaller()) {
+        self.apiCaller = apiCaller
+    }
 
     func getProducts() {
         self.isLoading.value = true

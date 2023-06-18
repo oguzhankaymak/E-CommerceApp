@@ -1,9 +1,9 @@
 import Foundation
 
-struct APICaller {
+struct APICaller: APICallerProtocol {
     static let shared = APICaller()
 
-    private init() {}
+    init() {}
 
     public func getProducts(category: String? = nil, completion: @escaping (Result<ProductResponse, Error>) -> Void) {
         var urlStr = "\(Constants.baseAPIURL)/products"
