@@ -60,6 +60,7 @@
 		E29E986729EC857400C1DDBF /* CartProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29E986629EC857400C1DDBF /* CartProductTableViewCell.swift */; };
 		E2A40B5D29D4D5FE00860129 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = E2A40B5C29D4D5FE00860129 /* SDWebImage */; };
 		E2AC78CC29D5B63F0027A847 /* ProductCollectionReusableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AC78CB29D5B63F0027A847 /* ProductCollectionReusableHeaderView.swift */; };
+		E2B2C9042A48622800FAED4D /* MockAPICallerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B2C9032A48622800FAED4D /* MockAPICallerHelper.swift */; };
 		E2B677322A2BD48500A499A9 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B677312A2BD48500A499A9 /* ProfileViewModel.swift */; };
 		E2BB0F7029F9A08A00B3A902 /* ProductCategorySkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BB0F6F29F9A08A00B3A902 /* ProductCategorySkeletonView.swift */; };
 		E2BB0F7229F9A5FC00B3A902 /* ProductCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BB0F7129F9A5FC00B3A902 /* ProductCategoryButton.swift */; };
@@ -76,6 +77,7 @@
 		E2CFAFD029E223480097BE35 /* ProductDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2CFAFCF29E223480097BE35 /* ProductDetailCoordinator.swift */; };
 		E2DFA37E29DFBB1D007DFFC6 /* ProductCardSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DFA37D29DFBB1D007DFFC6 /* ProductCardSkeletonView.swift */; };
 		E2DFA38029DFBC13007DFFC6 /* ProductCollectionSkeletonViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2DFA37F29DFBC13007DFFC6 /* ProductCollectionSkeletonViewCell.swift */; };
+		E2E6220A2A416EDC001DB9BD /* SearchViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E622092A416EDC001DB9BD /* SearchViewModelTests.swift */; };
 		E2E9D13E29FC074F00D8E51C /* ProductCategoryStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E9D13D29FC074F00D8E51C /* ProductCategoryStackView.swift */; };
 		E2E9D14229FC0A8100D8E51C /* ProductCategoryButtonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E9D14129FC0A8100D8E51C /* ProductCategoryButtonModel.swift */; };
 		E2FC4EEE29FC54E9004426E4 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FC4EED29FC54E9004426E4 /* Product.swift */; };
@@ -145,6 +147,7 @@
 		E29D16F629E7E8110039E3B8 /* CartProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartProduct.swift; sourceTree = "<group>"; };
 		E29E986629EC857400C1DDBF /* CartProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartProductTableViewCell.swift; sourceTree = "<group>"; };
 		E2AC78CB29D5B63F0027A847 /* ProductCollectionReusableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionReusableHeaderView.swift; sourceTree = "<group>"; };
+		E2B2C9032A48622800FAED4D /* MockAPICallerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPICallerHelper.swift; sourceTree = "<group>"; };
 		E2B677312A2BD48500A499A9 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		E2BB0F6F29F9A08A00B3A902 /* ProductCategorySkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCategorySkeletonView.swift; sourceTree = "<group>"; };
 		E2BB0F7129F9A5FC00B3A902 /* ProductCategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCategoryButton.swift; sourceTree = "<group>"; };
@@ -161,6 +164,7 @@
 		E2CFAFCF29E223480097BE35 /* ProductDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailCoordinator.swift; sourceTree = "<group>"; };
 		E2DFA37D29DFBB1D007DFFC6 /* ProductCardSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCardSkeletonView.swift; sourceTree = "<group>"; };
 		E2DFA37F29DFBC13007DFFC6 /* ProductCollectionSkeletonViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionSkeletonViewCell.swift; sourceTree = "<group>"; };
+		E2E622092A416EDC001DB9BD /* SearchViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelTests.swift; sourceTree = "<group>"; };
 		E2E9D13D29FC074F00D8E51C /* ProductCategoryStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCategoryStackView.swift; sourceTree = "<group>"; };
 		E2E9D14129FC0A8100D8E51C /* ProductCategoryButtonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCategoryButtonModel.swift; sourceTree = "<group>"; };
 		E2FC4EED29FC54E9004426E4 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
@@ -291,9 +295,10 @@
 		E2311FD52A3E40E900B54240 /* ECommerceAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				E2B2C9012A4861D300FAED4D /* MockAPICaller */,
 				E2311FDD2A3E412900B54240 /* HomeViewModelTests.swift */,
-				E2311FE42A3E422700B54240 /* MockAPICaller.swift */,
 				E24D1E552A3F602E00051BDE /* ProductDetailViewModelTests.swift */,
+				E2E622092A416EDC001DB9BD /* SearchViewModelTests.swift */,
 			);
 			path = ECommerceAppTests;
 			sourceTree = "<group>";
@@ -515,6 +520,15 @@
 				E2AC78CB29D5B63F0027A847 /* ProductCollectionReusableHeaderView.swift */,
 			);
 			path = ProductCollectionReusableHeaderView;
+			sourceTree = "<group>";
+		};
+		E2B2C9012A4861D300FAED4D /* MockAPICaller */ = {
+			isa = PBXGroup;
+			children = (
+				E2311FE42A3E422700B54240 /* MockAPICaller.swift */,
+				E2B2C9032A48622800FAED4D /* MockAPICallerHelper.swift */,
+			);
+			path = MockAPICaller;
 			sourceTree = "<group>";
 		};
 		E2B677302A2BD47600A499A9 /* Profile */ = {
@@ -823,6 +837,8 @@
 			files = (
 				E2311FDE2A3E412900B54240 /* HomeViewModelTests.swift in Sources */,
 				E2311FE52A3E422700B54240 /* MockAPICaller.swift in Sources */,
+				E2B2C9042A48622800FAED4D /* MockAPICallerHelper.swift in Sources */,
+				E2E6220A2A416EDC001DB9BD /* SearchViewModelTests.swift in Sources */,
 				E24D1E562A3F602E00051BDE /* ProductDetailViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
