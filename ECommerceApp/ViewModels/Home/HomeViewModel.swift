@@ -13,7 +13,7 @@ final class HomeViewModel {
 
     func getProducts() {
         self.isLoading.value = true
-        APICaller.shared.getProducts { [weak self] result in
+        apiCaller.getProducts { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let productResponse):
@@ -29,6 +29,8 @@ final class HomeViewModel {
 
                 case .failure(let error):
                     print(error.localizedDescription)
+                    self?.hotSalesProducts.value = []
+                    self?.recommendProducts.value = []
                     self?.isLoading.value = false
                 }
             }

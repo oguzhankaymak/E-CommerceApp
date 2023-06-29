@@ -1,6 +1,7 @@
 import Foundation
 
 final class SearchViewModel {
+    private let apiCaller: APICallerProtocol
 
     private(set) var isProductLoading = Observable<Bool>()
     private(set) var products = Observable<[Product]>()
@@ -9,7 +10,8 @@ final class SearchViewModel {
     private(set) var activeCategoryIndex = Observable<Int>()
     private(set) var categories = Observable<[String]>()
 
-    init() {
+    init(apiCaller: APICallerProtocol = APICaller()) {
+        self.apiCaller = apiCaller
         self.activeCategoryIndex.value = 0
     }
 }
@@ -18,7 +20,7 @@ final class SearchViewModel {
 extension SearchViewModel {
     func getProducts() {
         self.isProductLoading.value = true
-        APICaller.shared.getProducts { [weak self] result in
+        apiCaller.getProducts { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let productResponse):
@@ -28,6 +30,8 @@ extension SearchViewModel {
 
                 case .failure(let error):
                     print(error.localizedDescription)
+                    self?.initialProductData.value = []
+                    self?.products.value = []
                     self?.isProductLoading.value = false
                 }
             }
@@ -36,7 +40,7 @@ extension SearchViewModel {
 
     func getCategories() {
         self.isCategoryLoading.value = true
-        APICaller.shared.getCategories { [weak self] result in
+        apiCaller.getCategories { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let categoryResponse):
@@ -47,6 +51,7 @@ extension SearchViewModel {
 
                 case .failure(let error):
                     print(error.localizedDescription)
+                    self?.categories.value = []
                     self?.isCategoryLoading.value = false
                 }
             }
@@ -95,7 +100,7 @@ extension SearchViewModel {
 extension SearchViewModel {
     private func getProductsOfCategory(category: String) {
         self.isProductLoading.value = true
-        APICaller.shared.getProducts(category: category) { [weak self] result in
+        apiCaller.getProductsByCategory(category: category) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let productResponse):
@@ -112,7 +117,7 @@ extension SearchViewModel {
 
     private func getProductsByText(text: String) {
         self.isProductLoading.value = true
-        APICaller.shared.searchProducts(text: text) { [weak self] result in
+        apiCaller.searchProducts(text: text) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let productResponse):

@@ -5,12 +5,35 @@ struct APICaller: APICallerProtocol {
 
     init() {}
 
-    public func getProducts(category: String? = nil, completion: @escaping (Result<ProductResponse, Error>) -> Void) {
-        var urlStr = "\(Constants.baseAPIURL)/products"
+    public func getProducts(completion: @escaping (Result<ProductResponse, Error>) -> Void) {
+        let urlStr = "\(Constants.baseAPIURL)/products"
 
-        if let category = category {
-            urlStr += "/category/\(category)"
+        guard let url = URL(string: urlStr) else {
+            return
         }
+
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+            guard let data = data, error == nil else {
+                completion(.failure(APIError.failedToGetData))
+                return
+            }
+
+            do {
+                let result = try JSONDecoder().decode(ProductResponse.self, from: data)
+                completion(.success(result))
+            } catch {
+                completion(.failure(error))
+            }
+        }
+        task.resume()
+    }
+
+    public func getProductsByCategory(
+        category: String,
+        completion: @escaping (Result<ProductResponse, Error>
+        ) -> Void
+    ) {
+        let urlStr = "\(Constants.baseAPIURL)/products/category/\(category)"
 
         guard let url = URL(string: urlStr) else {
             return
