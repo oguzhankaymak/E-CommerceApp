@@ -183,6 +183,7 @@ extension ProductDetailBodyView {
         addSubview(descriptionLabel)
     }
 
+    // swiftlint:disable function_body_length
     private func configureConstraints() {
         let titleLabelConstraints = [
             titleLabel.topAnchor.constraint(equalTo: topAnchor),

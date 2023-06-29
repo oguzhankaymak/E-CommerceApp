@@ -237,6 +237,7 @@ extension ProfileViewController {
         successView.addSubview(successLabel)
     }
 
+    // swiftlint:disable function_body_length
     private func configureConstraints() {
         let scrollViewConstraints = [
             scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
