@@ -5,35 +5,39 @@ class ProductDetailViewModelTests: XCTestCase {
 
     var viewModel: ProductDetailViewModel!
     var mockApiCaller: MockAPICaller!
-    var mockProducts: ProductResponse!
+    var mockProductResponse: ProductResponse!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
         viewModel = ProductDetailViewModel()
         mockApiCaller = MockAPICaller()
-        mockProducts = mockApiCaller.createMockProductResponse()
+        mockProductResponse = MockAPICallerHelper.createMockProductResponse()
     }
 
     override func tearDownWithError() throws {
         viewModel = nil
         mockApiCaller = nil
+        mockProductResponse = nil
         CartHelper.clearCart()
         try super.tearDownWithError()
     }
 
     func testChangeActiveCarouselImageIndex() {
-        let expectedIndex = 2
-        viewModel.changeActiveCarouselImageIndex(imageIndex: expectedIndex)
+        let newActiveCarouselImageIndex = 2
 
-        XCTAssertEqual(
-            viewModel.activeCarouselImageIndex.value,
-            expectedIndex,
-            "Active carousel image index should be expected index: \(expectedIndex)"
-        )
+        viewModel.activeCarouselImageIndex.bind { activeCarouselImageIndex  in
+            XCTAssertEqual(
+                activeCarouselImageIndex,
+                newActiveCarouselImageIndex,
+                "Active carousel image index should be expected index: \(newActiveCarouselImageIndex)"
+            )
+        }
+
+        viewModel.changeActiveCarouselImageIndex(imageIndex: newActiveCarouselImageIndex)
     }
 
     func testAddProductToCart_NewProduct() {
-        let product = mockProducts.products[0]
+        let product = mockProductResponse.products[0]
         viewModel.addProductToCart(product: product)
 
         XCTAssertEqual(
@@ -49,8 +53,8 @@ class ProductDetailViewModelTests: XCTestCase {
         )
     }
 
-    func testAddProductToCard_ExistingProduct() {
-        let product = mockProducts.products[0]
+    func testAddProductToCart_ExistingProduct() {
+        let product = mockProductResponse.products[0]
         let numberOfProductsToAdd = 3
 
         for _ in 1...numberOfProductsToAdd {

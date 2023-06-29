@@ -4,106 +4,143 @@ import XCTest
 final class HomeViewModelTests: XCTestCase {
 
     var viewModel: HomeViewModel!
-    var mockAPICaller: MockAPICaller!
-    var mockProducts: ProductResponse!
+    var mockApiCaller: MockAPICaller!
+    var mockProductResponse: ProductResponse!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        mockAPICaller = MockAPICaller()
-        viewModel = HomeViewModel(apiCaller: mockAPICaller)
-        mockProducts = mockAPICaller.createMockProductResponse()
+        mockApiCaller = MockAPICaller()
+        viewModel = HomeViewModel(apiCaller: mockApiCaller)
+        mockProductResponse = MockAPICallerHelper.createMockProductResponse()
     }
 
     override func tearDownWithError() throws {
-        mockAPICaller = nil
+        mockApiCaller = nil
         viewModel = nil
+        mockProductResponse = nil
         CartHelper.clearCart()
         try super.tearDownWithError()
     }
 
-    func testGetProductsLoadingState() {
-        let expectation = XCTestExpectation(description: "Get products expectation.")
+    func testGetProduct_Success() {
+        let loadingExpectation = expectation(description: "Loading state expectation.")
+        let hotSalesProductsExpectation = expectation(description: "Hot sales products expectation.")
+        let recommendProductsExpectation = expectation(description: "Recommend products expectation.")
 
-        let successfulResult = Result<ProductResponse, Error>.success(mockProducts)
-        mockAPICaller.productResult = successfulResult
+        viewModel.isLoading.bind { isLoading in
+            guard let isLoading = isLoading else {
+                return XCTFail("isLoading value was nil.")
+            }
 
+            if self.viewModel.hotSalesProducts.value == nil || self.viewModel.recommendProducts.value == nil {
+                XCTAssertTrue(isLoading, "isLoading should be true while loading products.")
+            } else {
+                XCTAssertFalse(isLoading, "isLoading should be false after loaded products.")
+                loadingExpectation.fulfill()
+            }
+        }
+
+        viewModel.hotSalesProducts.bind { [weak self] hotSalesProducts in
+            let expectedHotSalesProductsCount = self?.mockProductResponse.products[...10].count
+            let hotSalesProductsCount = hotSalesProducts?.count
+            let hotSalesProductsCountMessage = """
+                Expected hot sales product count: \(String(describing: expectedHotSalesProductsCount)),
+                but found: \(hotSalesProductsCount ?? 0)
+            """
+
+            XCTAssertEqual(hotSalesProductsCount, expectedHotSalesProductsCount, hotSalesProductsCountMessage)
+            hotSalesProductsExpectation.fulfill()
+        }
+
+        viewModel.recommendProducts.bind { [weak self] recommendProducts in
+            let expectedRecommendProductsCount = self?.mockProductResponse
+                .products[11..<self!.mockProductResponse.products.endIndex].count
+            let recommendProductsCount = recommendProducts?.count
+            let recommendProductsCountMessage = """
+                Expected recommend products count: \(String(describing: expectedRecommendProductsCount)),
+                but found: \(String(describing: recommendProductsCount))
+            """
+
+            XCTAssertEqual(recommendProductsCount, expectedRecommendProductsCount, recommendProductsCountMessage)
+            recommendProductsExpectation.fulfill()
+        }
+
+        mockApiCaller.productResult = .success(mockProductResponse)
         viewModel.getProducts()
 
-        guard let loadingValue = viewModel.isLoading.value else { return XCTFail("Loading value was nil.") }
-
-        XCTAssertTrue(loadingValue, "isLoading should be true while loading products.")
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            guard let loadingValue = self.viewModel.isLoading.value else { return XCTFail("Loading value is nil.") }
-            XCTAssertFalse(loadingValue, "isLoading should be false after loaded products.")
-            expectation.fulfill()
-        }
+        waitForExpectations(timeout: 5, handler: nil)
     }
 
-    func testGetProductsSuccess() {
-        let expectation = XCTestExpectation(description: "Get products expectation.")
+    func testGetProducts_Failure() {
+        let loadingExpectation = expectation(description: "Loading state expectation.")
+        let hotSalesProductsExpectation = expectation(description: "Hot sales products expectation.")
+        let recommendProductsExpectation = expectation(description: "Recommend products expectation.")
 
-        let successfulResult = Result<ProductResponse, Error>.success(mockProducts)
-        mockAPICaller.productResult = successfulResult
+        viewModel.isLoading.bind { isLoading in
+            guard let isLoading = isLoading else {
+                return XCTFail("isLoading value was nil.")
+            }
 
-        viewModel.getProducts()
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-
-            XCTAssertEqual(
-                self.viewModel.hotSalesProducts.value,
-                Array(self.mockProducts.products[...10]),
-                "Hot sales products should match expected values."
-            )
-            XCTAssertEqual(
-                self.viewModel.recommendProducts.value,
-                Array(self.mockProducts.products[11..<self.mockProducts.products.endIndex]),
-                "Recommend products should match expected values."
-            )
-
-            expectation.fulfill()
+            if self.viewModel.hotSalesProducts.value == nil || self.viewModel.recommendProducts.value == nil {
+                XCTAssertTrue(isLoading, "isLoading should be true while loading products.")
+            } else {
+                XCTAssertFalse(isLoading, "isLoading should be false after loaded products.")
+                loadingExpectation.fulfill()
+            }
         }
-    }
 
-    func testGetProductsFailure() {
-        let expectation = XCTestExpectation(description: "Get products expectation.")
+        viewModel.hotSalesProducts.bind { hotSalesProducts in
+            let expectedHotSalesProductsCount = 0
+            let hotSalesProductsCount = hotSalesProducts?.count
+            let hotSalesProductsCountMessage = """
+                Expected hot sales product count: \(String(describing: expectedHotSalesProductsCount)),
+                but found: \(hotSalesProductsCount ?? 0)
+            """
+
+            XCTAssertEqual(hotSalesProductsCount, expectedHotSalesProductsCount, hotSalesProductsCountMessage)
+            hotSalesProductsExpectation.fulfill()
+        }
+
+        viewModel.recommendProducts.bind { recommendProducts in
+            let expectedRecommendProductsCount = 0
+            let recommendProductsCount = recommendProducts?.count
+            let recommendProductsCountMessage = """
+                Expected recommend products count: \(String(describing: expectedRecommendProductsCount)),
+                but found: \(String(describing: recommendProductsCount))
+            """
+
+            XCTAssertEqual(recommendProductsCount, expectedRecommendProductsCount, recommendProductsCountMessage)
+            recommendProductsExpectation.fulfill()
+        }
 
         let error = NSError(domain: "TestError", code: 999, userInfo: nil)
-        mockAPICaller.productResult = .failure(error)
+        mockApiCaller.productResult = .failure(error)
 
         viewModel.getProducts()
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            XCTAssertEqual(
-                self.viewModel.hotSalesProducts.value?.count,
-                0,
-                "Hot sales products count should be 0 on failure."
-            )
-            XCTAssertEqual(
-                self.viewModel.recommendProducts.value?.count,
-                0,
-                "Recommend products count should be 0 on failure."
-            )
-
-            expectation.fulfill()
-        }
+        waitForExpectations(timeout: 5, handler: nil)
     }
 
     func testAddProductToCart_NewProduct() {
-        let product = mockProducts.products[0]
+        let product = mockProductResponse.products[0]
         viewModel.addProductToCart(product: product)
 
-        XCTAssertEqual(AppData.cart.count, 1, "Cart should contain 1 product.")
+        XCTAssertEqual(
+            AppData.cart.count,
+            1,
+            "Count of product inside cart should be 1."
+        )
+
         XCTAssertEqual(
             AppData.cart[0].productId,
             product.id,
-            "Product ID in the cart should match the added product's ID."
+            "Id of product inside cart should match added product id."
         )
     }
 
     func testAddProductToCart_ExistingProduct() {
-        let product = mockProducts.products[0]
-        let numberOfProductsToAdd = 2
+        let product = mockProductResponse.products[0]
+        let numberOfProductsToAdd = 3
 
         for _ in 1...numberOfProductsToAdd {
             viewModel.addProductToCart(product: product)
