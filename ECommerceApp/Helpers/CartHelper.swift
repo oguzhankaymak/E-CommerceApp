@@ -23,8 +23,10 @@ final class CartHelper {
     }
 
     private static func increaseProductQuantityInCart(cartProductIndex: Int) {
-        AppData.cart[cartProductIndex].quantity += 1
-        AppData.cart[cartProductIndex].totalPrice += AppData.cart[cartProductIndex].unitPrice
+        var cartProduct = AppData.cart[cartProductIndex]
+        cartProduct.quantity += 1
+        cartProduct.totalPrice += cartProduct.unitPrice
+        AppData.cart[cartProductIndex] = cartProduct
     }
 
     static func decreaseProductQuantityInCart(cartProduct: CartProduct) {
@@ -32,8 +34,10 @@ final class CartHelper {
 
         if let index = index {
             if AppData.cart[index].quantity > 1 {
-                AppData.cart[index].quantity -= 1
-                AppData.cart[index].totalPrice -= cartProduct.unitPrice
+                var cartProductByIndex = AppData.cart[index]
+                cartProductByIndex.quantity -= 1
+                cartProductByIndex.totalPrice -= cartProduct.unitPrice
+                AppData.cart[index] = cartProductByIndex
             } else {
                 removeProductFromCart(cartProduct: cartProduct)
             }
