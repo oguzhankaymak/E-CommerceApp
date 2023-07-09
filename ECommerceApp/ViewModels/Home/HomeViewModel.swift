@@ -52,4 +52,30 @@ final class HomeViewModel {
 
         CartHelper.addProductToCart(cartProduct: cartProduct)
     }
+
+    func didSelectItemAt(
+        coordinator: HomeCoordinatorProtocol?,
+        indexPath: IndexPath
+    ) {
+        guard let isLoading = isLoading.value else {
+            return
+        }
+
+        if !isLoading {
+            var currentProduct: Product?
+
+            switch indexPath.section {
+            case 0:
+                currentProduct = hotSalesProducts.value?[indexPath.row]
+            case 1:
+                currentProduct = recommendProducts.value?[indexPath.row]
+            default:
+                currentProduct = nil
+            }
+
+            guard let product = currentProduct else { return }
+
+            coordinator?.goToProductDetail(product: product)
+        }
+    }
 }

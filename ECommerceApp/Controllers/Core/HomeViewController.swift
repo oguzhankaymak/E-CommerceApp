@@ -25,6 +25,7 @@ class HomeViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = Theme.Color.backgroundColor
+        collectionView.accessibilityIdentifier = "home_product_collectionView"
         return collectionView
     }()
 
@@ -107,6 +108,10 @@ extension HomeViewController:
                 return UICollectionViewCell()
             }
 
+            cell.accessibilityIdentifier =
+            "\(ProductCollectionSkeletonViewCell.accessibilityIdentifier)" +
+            "_\(indexPath.section)" + "_\(indexPath.row)"
+
             return cell
 
         } else {
@@ -132,6 +137,10 @@ extension HomeViewController:
             }
 
             cell.configureModel(product: product)
+
+            cell.accessibilityIdentifier =
+            "\(ProductCollectionViewCell.accessibilityIdentifier)" +
+            "_\(indexPath.section)" + "_\(indexPath.row)"
 
             cell.delegate = self
             return cell
@@ -180,20 +189,10 @@ extension HomeViewController:
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        var currentProduct: Product?
-
-        switch indexPath.section {
-        case 0:
-            currentProduct = model.hotSalesProducts.value?[indexPath.row]
-        case 1:
-            currentProduct = model.recommendProducts.value?[indexPath.row]
-        default:
-            currentProduct = nil
-        }
-
-        guard let product = currentProduct else { return }
-
-        coordinator?.goToProductDetail(product: product)
+        model.didSelectItemAt(
+            coordinator: coordinator,
+            indexPath: indexPath
+        )
     }
 }
 
