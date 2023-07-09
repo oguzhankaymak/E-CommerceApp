@@ -44,6 +44,7 @@ class SearchViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = Theme.Color.backgroundColor
+        collectionView.accessibilityIdentifier = "search_collectionView"
         return collectionView
     }()
 
@@ -59,10 +60,10 @@ class SearchViewController: UIViewController {
         configureCollectionView()
         configureConstraints()
         subscribeToModel()
-        model.getCategories()
-        model.getProducts()
         categoryStackView.delegate = self
         searchBar.delegate = self
+        model.getCategories()
+        model.getProducts()
     }
 
     private func scrollViewScrollToSpecificIndex(categoryIndex: Int) {
@@ -135,6 +136,10 @@ extension SearchViewController:
                 return UICollectionViewCell()
             }
 
+            cell.accessibilityIdentifier =
+            "\(ProductCollectionSkeletonViewCell.accessibilityIdentifier)" +
+            "_\(indexPath.row)"
+
             return cell
 
         } else {
@@ -149,6 +154,10 @@ extension SearchViewController:
 
             cell.configureModel(product: currentProduct)
 
+            cell.accessibilityIdentifier =
+            "\(ProductCollectionViewCell.accessibilityIdentifier)" +
+            "_\(indexPath.row)"
+
             cell.delegate = self
             return cell
         }
@@ -156,8 +165,7 @@ extension SearchViewController:
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let currentProduct = model.products.value?[indexPath.row] else { return }
-        coordinator?.goToProductDetail(product: currentProduct)
+        model.didSelectItemAt(coordinator: coordinator, indexPath: indexPath)
     }
 }
 

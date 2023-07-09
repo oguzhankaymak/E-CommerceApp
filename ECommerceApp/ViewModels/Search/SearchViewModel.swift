@@ -94,9 +94,23 @@ extension SearchViewModel {
 
         CartHelper.addProductToCart(cartProduct: cartProduct)
     }
+
+    func didSelectItemAt(
+        coordinator: SearchCoordinatorProtocol?,
+        indexPath: IndexPath
+    ) {
+        guard let isLoading = isProductLoading.value else {
+            return
+        }
+
+        if !isLoading {
+            guard let currentProduct = products.value?[indexPath.row] else { return }
+            coordinator?.goToProductDetail(product: currentProduct)
+        }
+    }
 }
 
-// Private methods
+// MARK: - Private methods
 extension SearchViewModel {
     private func getProductsOfCategory(category: String) {
         self.isProductLoading.value = true
