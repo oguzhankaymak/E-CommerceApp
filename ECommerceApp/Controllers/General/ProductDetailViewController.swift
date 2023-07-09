@@ -7,6 +7,18 @@ class ProductDetailViewController: UIViewController {
 
     private var model: ProductDetailViewModel!
 
+    private lazy var containerScrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+
+    private lazy var contentStackView: UIView = {
+        let stackView = UIView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+
     private lazy var productDetailHeaderView = ProductDetailHeaderView()
     private lazy var productDetailBodyView = ProductDetailBodyView()
     private lazy var productDetailFooterView = ProductDetailFooterView()
@@ -163,42 +175,62 @@ extension ProductDetailViewController {
 extension ProductDetailViewController {
 
     private func addUIElements() {
-        view.addSubview(productDetailHeaderView)
-        view.addSubview(productDetailBodyView)
-        view.addSubview(productDetailFooterView)
+        view.addSubview(containerScrollView)
+        containerScrollView.addSubview(contentStackView)
+        contentStackView.addSubview(productDetailHeaderView)
+        contentStackView.addSubview(productDetailBodyView)
+        contentStackView.addSubview(productDetailFooterView)
 
         view.addSubview(successView)
         successView.addSubview(successLabel)
     }
 
+    // swiftlint:disable function_body_length
     private func configureConstraints() {
+        let containerScrollViewConstraints = [
+            containerScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            containerScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            containerScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            containerScrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ]
+
+        let contentStackViewConstraints = [
+            contentStackView.topAnchor.constraint(equalTo: containerScrollView.topAnchor),
+            contentStackView.leadingAnchor.constraint(equalTo: containerScrollView.leadingAnchor),
+            contentStackView.trailingAnchor.constraint(equalTo: containerScrollView.trailingAnchor),
+            contentStackView.bottomAnchor.constraint(equalTo: containerScrollView.bottomAnchor),
+            contentStackView.widthAnchor.constraint(equalTo: containerScrollView.widthAnchor),
+            contentStackView.heightAnchor.constraint(greaterThanOrEqualTo: containerScrollView.heightAnchor)
+        ]
+
         let productDetailHeaderViewConstraints = [
-            productDetailHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            productDetailHeaderView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            productDetailHeaderView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            productDetailHeaderView.topAnchor.constraint(equalTo: contentStackView.topAnchor),
+            productDetailHeaderView.leadingAnchor.constraint(equalTo: contentStackView.leadingAnchor),
+            productDetailHeaderView.trailingAnchor.constraint(equalTo: contentStackView.trailingAnchor),
             productDetailHeaderView.heightAnchor.constraint(equalToConstant: view.frame.size.height * 0.35)
         ]
 
         let productDetailBodyViewConstraints = [
-            productDetailBodyView.topAnchor.constraint(equalTo: productDetailHeaderView.bottomAnchor, constant: 20),
+            productDetailBodyView.topAnchor.constraint(equalTo: productDetailHeaderView.bottomAnchor),
             productDetailBodyView.leadingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                equalTo: contentStackView.leadingAnchor,
                 constant: 20
             ),
-            productDetailBodyView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+            productDetailBodyView.trailingAnchor.constraint(equalTo: contentStackView.trailingAnchor, constant: -20),
+            productDetailBodyView.bottomAnchor.constraint(equalTo: productDetailFooterView.topAnchor)
         ]
 
         let productDetailFooterViewConstraints = [
             productDetailFooterView.leadingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+                equalTo: contentStackView.leadingAnchor,
                 constant: 20
             ),
             productDetailFooterView.trailingAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+                equalTo: contentStackView.trailingAnchor,
                 constant: -20
             ),
             productDetailFooterView.bottomAnchor.constraint(
-                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                equalTo: contentStackView.bottomAnchor,
                 constant: -10
             ),
             productDetailFooterView.heightAnchor.constraint(equalToConstant: 50)
@@ -216,6 +248,8 @@ extension ProductDetailViewController {
             successLabel.leadingAnchor.constraint(equalTo: successView.leadingAnchor, constant: 20)
         ]
 
+        NSLayoutConstraint.activate(containerScrollViewConstraints)
+        NSLayoutConstraint.activate(contentStackViewConstraints)
         NSLayoutConstraint.activate(productDetailHeaderViewConstraints)
         NSLayoutConstraint.activate(productDetailBodyViewConstraints)
         NSLayoutConstraint.activate(productDetailFooterViewConstraints)

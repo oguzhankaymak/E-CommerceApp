@@ -26,6 +26,7 @@ final class ProductDetailHeaderView: UIView {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = Theme.Color.backgroundColor
         collectionView.alwaysBounceVertical = false
+        collectionView.accessibilityIdentifier = "carousel_collectionView"
         return collectionView
     }()
 
@@ -42,8 +43,7 @@ final class ProductDetailHeaderView: UIView {
         button.tintColor = Theme.Color.black
         button.backgroundColor = Theme.Color.white
         button.layer.cornerRadius = Theme.CornerRadius.extraSmall
-        button.widthAnchor.constraint(equalToConstant: 26).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 26).isActive = true
+        button.accessibilityIdentifier = "back_button"
         return button
     }()
 
@@ -90,7 +90,6 @@ extension ProductDetailHeaderView {
             view.heightAnchor.constraint(equalToConstant: 8).isActive = true
             view.backgroundColor = Theme.Color.lightGrey
             view.layer.cornerRadius = Theme.CornerRadius.extraSmall
-
             carouselControlStackView.addArrangedSubview(view)
         }
     }
@@ -115,7 +114,9 @@ extension ProductDetailHeaderView {
 
         let backButtonConstraints = [
             backButton.topAnchor.constraint(equalTo: carouselCollectionView.topAnchor, constant: 14),
-            backButton.leadingAnchor.constraint(equalTo: carouselCollectionView.leadingAnchor, constant: 14)
+            backButton.leadingAnchor.constraint(equalTo: carouselCollectionView.leadingAnchor, constant: 14),
+            backButton.widthAnchor.constraint(equalToConstant: 26),
+            backButton.heightAnchor.constraint(equalToConstant: 26)
         ]
 
         let carouselControlStackViewConstraints = [

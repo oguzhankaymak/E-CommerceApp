@@ -13,6 +13,7 @@ final class ProductDetailFooterView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Theme.AppFont.sectionTitle
         label.textColor = Theme.Color.black
+        label.accessibilityIdentifier = "priceLabel"
         return label
     }()
 
@@ -25,6 +26,7 @@ final class ProductDetailFooterView: UIView {
         button.setTitle("Add to cart", for: .normal)
         button.setTitleColor(Theme.Color.white, for: .normal)
         button.addTarget(self, action: #selector(buyButtonDidTap), for: .touchUpInside)
+        button.accessibilityIdentifier = "buyButton"
         return button
     }()
 

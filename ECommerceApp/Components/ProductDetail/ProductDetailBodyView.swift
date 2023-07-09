@@ -8,6 +8,7 @@ final class ProductDetailBodyView: UIView {
         label.font = Theme.AppFont.title
         label.textColor = Theme.Color.black
         label.numberOfLines = 0
+        label.accessibilityIdentifier = "title_label"
         return label
     }()
 
@@ -16,6 +17,7 @@ final class ProductDetailBodyView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Theme.AppFont.productCardTitle
         label.textColor = Theme.Color.gray
+        label.accessibilityIdentifier = "brand_label"
         return label
     }()
 
@@ -38,7 +40,7 @@ final class ProductDetailBodyView: UIView {
 
         imageView.image = icon
         imageView.tintColor = .red
-
+        imageView.accessibilityIdentifier = "discount_imageView"
         return imageView
     }()
 
@@ -47,6 +49,7 @@ final class ProductDetailBodyView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Theme.AppFont.productInfo
         label.textColor = Theme.Color.gray
+        label.accessibilityIdentifier = "discount_label"
         return label
     }()
 
@@ -67,7 +70,7 @@ final class ProductDetailBodyView: UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = icon
-
+        imageView.accessibilityIdentifier = "rating_imageView"
         return imageView
     }()
 
@@ -76,6 +79,7 @@ final class ProductDetailBodyView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Theme.AppFont.productInfo
         label.textColor = Theme.Color.gray
+        label.accessibilityIdentifier = "rating_label"
         return label
     }()
 
@@ -84,7 +88,6 @@ final class ProductDetailBodyView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.widthAnchor.constraint(equalToConstant: 40).isActive = true
         view.heightAnchor.constraint(equalToConstant: 20).isActive = true
-
         return view
     }()
 
@@ -97,7 +100,7 @@ final class ProductDetailBodyView: UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = icon
-
+        imageView.accessibilityIdentifier = "stock_imageView"
         return imageView
     }()
 
@@ -106,6 +109,7 @@ final class ProductDetailBodyView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Theme.AppFont.productInfo
         label.textColor = Theme.Color.gray
+        label.accessibilityIdentifier = "stock_label"
         return label
     }()
 
@@ -124,6 +128,7 @@ final class ProductDetailBodyView: UIView {
         label.font = Theme.AppFont.productCardTitle
         label.textColor = Theme.Color.gray
         label.numberOfLines = 0
+        label.accessibilityIdentifier = "description_label"
         return label
     }()
 
@@ -186,14 +191,15 @@ extension ProductDetailBodyView {
     // swiftlint:disable function_body_length
     private func configureConstraints() {
         let titleLabelConstraints = [
-            titleLabel.topAnchor.constraint(equalTo: topAnchor),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
         ]
 
         let brandLabelConstraints = [
             brandLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 2),
-            brandLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor)
+            brandLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
+            brandLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor)
         ]
 
         let infoStackViewConstraints = [
@@ -235,7 +241,8 @@ extension ProductDetailBodyView {
         let descriptionLabelConstrains = [
             descriptionLabel.topAnchor.constraint(equalTo: infoStackView.bottomAnchor, constant: 40),
             descriptionLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
+            descriptionLabel.trailingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
+            descriptionLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor)
         ]
 
         NSLayoutConstraint.activate(titleLabelConstraints)
