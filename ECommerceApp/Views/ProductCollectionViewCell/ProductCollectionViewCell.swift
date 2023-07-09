@@ -6,7 +6,8 @@ protocol ProductCollectionViewCellDelegate: AnyObject {
 
 class ProductCollectionViewCell: UICollectionViewCell {
 
-    static let identifier = "product-cell"
+    static let identifier = "product_cell"
+    static let accessibilityIdentifier = "product_cell"
 
     weak var delegate: ProductCollectionViewCellDelegate?
     var model: ProductCollectionViewCellViewModel?

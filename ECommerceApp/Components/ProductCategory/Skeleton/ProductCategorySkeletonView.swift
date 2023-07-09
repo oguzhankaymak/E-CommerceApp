@@ -2,6 +2,8 @@ import UIKit
 
 final class ProductCategorySkeletonView: UIView {
 
+    static let accessibilityIdentitifier = "product_category_skeletonView"
+
     private lazy var containerViewGradientLayer = SkeletonGradientLayer()
 
     // MARK: - Init

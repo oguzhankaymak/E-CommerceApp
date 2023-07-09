@@ -15,6 +15,7 @@ final class ProductCardView: UIView {
         imageView.layer.cornerRadius = Theme.CornerRadius.normal
         imageView.clipsToBounds = true
         imageView.layer.masksToBounds = true
+        imageView.accessibilityIdentifier = "productCard_imageView"
         return imageView
     }()
 
@@ -23,6 +24,7 @@ final class ProductCardView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Theme.AppFont.productCardTitle
         label.textColor = Theme.Color.black
+        label.accessibilityIdentifier = "productCard_title_label"
         return label
     }()
 
@@ -32,6 +34,7 @@ final class ProductCardView: UIView {
         label.font = Theme.AppFont.productCardDescription
         label.textColor = Theme.Color.gray
         label.numberOfLines = 2
+        label.accessibilityIdentifier = "productCard_description_label"
         return label
     }()
 
@@ -44,7 +47,7 @@ final class ProductCardView: UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = icon
-
+        imageView.accessibilityIdentifier = "productCard_rating_imageView"
         return imageView
     }()
 
@@ -53,6 +56,7 @@ final class ProductCardView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Theme.AppFont.productRating
         label.textColor = Theme.Color.gray
+        label.accessibilityIdentifier = "productCard_rating_label"
         return label
     }()
 
@@ -61,6 +65,7 @@ final class ProductCardView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Theme.AppFont.productCardPrice
         label.textColor = Theme.Color.black
+        label.accessibilityIdentifier = "productCard_price_label"
         return label
     }()
 
@@ -73,6 +78,7 @@ final class ProductCardView: UIView {
         button.layer.cornerRadius = Theme.CornerRadius.special
         button.layer.masksToBounds = true
         button.addTarget(self, action: #selector(productBuyButtonDidTap), for: .touchUpInside)
+        button.accessibilityIdentifier = "productCard_addToCart_button"
         return button
     }()
 

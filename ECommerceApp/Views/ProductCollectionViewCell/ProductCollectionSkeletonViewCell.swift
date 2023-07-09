@@ -2,7 +2,9 @@ import UIKit
 
 class ProductCollectionSkeletonViewCell: UICollectionViewCell {
 
-    static let identifier = "product-skeleton-cell"
+    static let identifier = "product_skeleton_cell"
+    static let accessibilityIdentifier = "product_skeleton_cell"
+
     private lazy var productCardSkeletonView = ProductCardSkeletonView()
 
     override init(frame: CGRect) {

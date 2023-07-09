@@ -8,6 +8,8 @@ final class ProductCategoryButton: UIButton {
 
     weak var delegate: ProductCategoryButtonDelegate?
 
+    static let accessibilityIdentifier = "product_category_button"
+
     let buttonWidth: CGFloat = 12
 
     override init(frame: CGRect = .zero) {

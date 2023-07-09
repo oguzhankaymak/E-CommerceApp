@@ -24,8 +24,12 @@ final class ProductCategoryStackView: UIStackView {
     func showLoading() {
         arrangedSubviews.forEach { $0.removeFromSuperview() }
 
-        for _ in 0...3 {
-            addArrangedSubview(ProductCategorySkeletonView())
+        for index in 0...3 {
+            let skeletonView = ProductCategorySkeletonView()
+            skeletonView.accessibilityIdentifier =
+            ProductCategorySkeletonView.accessibilityIdentitifier +
+            "_\(index)"
+            addArrangedSubview(skeletonView)
         }
     }
 
@@ -41,6 +45,10 @@ final class ProductCategoryStackView: UIStackView {
                 categoryName: category,
                 isActiveCategory: isActiveCategory)
             )
+
+            button.accessibilityIdentifier =
+            ProductCategoryButton.accessibilityIdentifier +
+            "_\(index)"
 
             addArrangedSubview(button)
 

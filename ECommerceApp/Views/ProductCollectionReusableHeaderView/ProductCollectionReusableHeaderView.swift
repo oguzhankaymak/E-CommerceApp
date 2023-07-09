@@ -26,6 +26,7 @@ class ProductCollectionReusableHeaderView: UICollectionReusableView {
 
         let image = UIImage(named: "undraw_shopping_app")
         imageView.image = image
+        imageView.accessibilityIdentifier = "colletion_header_imageView"
         return imageView
     }()
 
@@ -46,6 +47,7 @@ class ProductCollectionReusableHeaderView: UICollectionReusableView {
         button.layer.cornerRadius = Theme.CornerRadius.normal
         button.layer.masksToBounds = true
         button.addTarget(self, action: #selector(exploreButtonDidTap), for: .touchUpInside)
+        button.accessibilityIdentifier = "explore_button"
         return button
     }()
 
