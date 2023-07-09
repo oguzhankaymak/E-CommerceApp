@@ -7,7 +7,8 @@ protocol CartProductTableViewCellDelegate: AnyObject {
 
 class CartProductTableViewCell: UITableViewCell {
 
-    static let identifier = "cart-product-cell"
+    static let accessibilityIdentifier = "cart_product_cell"
+    static let identifier = "cart_product_cell"
 
     var model: CartProductTableViewCellViewModel?
     weak var delegate: CartProductTableViewCellDelegate?
@@ -25,6 +26,7 @@ class CartProductTableViewCell: UITableViewCell {
         imageView.layer.cornerRadius = Theme.CornerRadius.normal
         imageView.clipsToBounds = true
         imageView.layer.masksToBounds = true
+        imageView.accessibilityIdentifier = "cart_product_imageView"
         return imageView
     }()
 
@@ -33,6 +35,7 @@ class CartProductTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Theme.AppFont.productCardTitle
         label.textColor = Theme.Color.black
+        label.accessibilityIdentifier = "cart_title_label"
         return label
     }()
 
@@ -42,6 +45,7 @@ class CartProductTableViewCell: UITableViewCell {
         label.font = Theme.AppFont.productCardDescription
         label.textColor = Theme.Color.gray
         label.numberOfLines = 2
+        label.accessibilityIdentifier = "cart_description_label"
         return label
     }()
 
@@ -52,6 +56,7 @@ class CartProductTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Theme.AppFont.productCardPrice
         label.textColor = Theme.Color.black
+        label.accessibilityIdentifier = "cart_price_label"
         return label
     }()
 

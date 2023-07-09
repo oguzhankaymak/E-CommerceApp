@@ -46,6 +46,7 @@ class CartViewController: UIViewController {
         button.setTitle("Checkout", for: .normal)
         button.setTitleColor(Theme.Color.white, for: .normal)
         button.addTarget(self, action: #selector(checkoutButtonDidTap), for: .touchUpInside)
+        button.accessibilityIdentifier = "checkout_button"
         return button
     }()
 
@@ -136,6 +137,7 @@ extension CartViewController {
         trashButton.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
         trashButton.setImage(trashImage, for: .normal)
         trashButton.addTarget(self, action: #selector(clearCart), for: .touchUpInside)
+        trashButton.accessibilityIdentifier = "trash_button"
 
         let rightBarButtonItem = UIBarButtonItem(customView: trashButton)
         rightBarButtonItem.customView?.heightAnchor.constraint(equalToConstant: 32).isActive = true
@@ -180,6 +182,9 @@ extension CartViewController: UITableViewDelegate, UITableViewDataSource {
         let currentCartProduct = cartData[indexPath.row]
 
         cell.configure(cartProduct: currentCartProduct)
+
+        cell.accessibilityIdentifier = CartProductTableViewCell.accessibilityIdentifier + "_\(indexPath.row)"
+
         cell.delegate = self
 
         return cell
