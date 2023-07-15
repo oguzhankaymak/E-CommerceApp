@@ -57,6 +57,7 @@
 		E26FF3B529D1D37C00A7CE50 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26FF3B429D1D37C00A7CE50 /* Theme.swift */; };
 		E285043D29D41A8E00F378F6 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E285043C29D41A8E00F378F6 /* HomeViewModel.swift */; };
 		E285044029D41ABA00F378F6 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E285043F29D41ABA00F378F6 /* Observable.swift */; };
+		E29267A72A62C39700CCA068 /* ProfileUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29267A62A62C39700CCA068 /* ProfileUITests.swift */; };
 		E29C0FDB29D85C4600A5A4D5 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29C0FDA29D85C4600A5A4D5 /* UIColor+Extensions.swift */; };
 		E29D16F329E7E7D30039E3B8 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29D16F229E7E7D30039E3B8 /* Storage.swift */; };
 		E29D16F529E7E7E70039E3B8 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E29D16F429E7E7E70039E3B8 /* AppData.swift */; };
@@ -160,6 +161,7 @@
 		E26FF3B429D1D37C00A7CE50 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		E285043C29D41A8E00F378F6 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		E285043F29D41ABA00F378F6 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		E29267A62A62C39700CCA068 /* ProfileUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUITests.swift; sourceTree = "<group>"; };
 		E29C0FDA29D85C4600A5A4D5 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		E29D16F229E7E7D30039E3B8 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		E29D16F429E7E7E70039E3B8 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 				E2E7DCAD2A57511C0087CFD5 /* ProductDetailUITests.swift */,
 				E23F753B2A4EF5F6003367E0 /* SearchUITests.swift */,
 				E20F4C492A5C937A00583E51 /* CartUITests.swift */,
+				E29267A62A62C39700CCA068 /* ProfileUITests.swift */,
 			);
 			path = ECommerceAppUITests;
 			sourceTree = "<group>";
@@ -939,6 +942,7 @@
 				E2CEEBAF2A59C6530021D406 /* XCUIApplication+Extensions.swift in Sources */,
 				E23F753C2A4EF5F6003367E0 /* SearchUITests.swift in Sources */,
 				E20F4C4A2A5C937A00583E51 /* CartUITests.swift in Sources */,
+				E29267A72A62C39700CCA068 /* ProfileUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

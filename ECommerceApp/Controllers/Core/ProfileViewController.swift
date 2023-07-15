@@ -25,6 +25,7 @@ class ProfileViewController: UIViewController {
             string: "Name",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
         )
+        textField.accessibilityIdentifier = "name_text_field"
         return textField
     }()
 
@@ -41,6 +42,7 @@ class ProfileViewController: UIViewController {
             string: "Surname",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray]
         )
+        textField.accessibilityIdentifier = "surname_text_field"
         return textField
     }()
 
@@ -54,6 +56,7 @@ class ProfileViewController: UIViewController {
         textView.text = "Your message"
         textView.textColor = Theme.Color.gray
         textView.font = .systemFont(ofSize: 16)
+        textView.accessibilityIdentifier = "message_text_view"
         return textView
     }()
 
@@ -68,6 +71,7 @@ class ProfileViewController: UIViewController {
         button.layer.cornerRadius = Theme.CornerRadius.extraLarge
         button.isEnabled = false
         button.addTarget(self, action: #selector(didTapToSubmit), for: .touchUpInside)
+        button.accessibilityIdentifier = "submit_button"
         return button
     }()
 
@@ -92,6 +96,7 @@ class ProfileViewController: UIViewController {
         label.text = "Message delivered"
         label.textColor = Theme.Color.white
         label.font = Theme.AppFont.productInfo
+        label.accessibilityIdentifier = "success_label"
         return label
     }()
 
@@ -108,6 +113,7 @@ class ProfileViewController: UIViewController {
     }
 
     @objc private func didTapToSubmit() {
+        didTapToDismiss()
         model.submitForm()
     }
 
