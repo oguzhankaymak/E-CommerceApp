@@ -3,7 +3,7 @@ import XCTest
 // swiftlint:disable type_body_length
 final class CartUITests: XCTestCase {
 
-    func test_cartScreenDisplayWhenCartIsEmpty() {
+    func testCartScreenDisplayWhenCartIsEmpty() {
         let app = XCUIApplication()
         app.resetCart()
         app.launch()
@@ -35,7 +35,7 @@ final class CartUITests: XCTestCase {
         }
     }
 
-    func test_cartScreenDisplayWhenAddingProductToCart() {
+    func testCartScreenDisplayWhenAddingProductToCart() {
         let app = XCUIApplication()
         app.resetCart()
         app.launch()
@@ -81,7 +81,7 @@ final class CartUITests: XCTestCase {
         }
     }
 
-    func test_removeAllCartProducts() {
+    func testRemoveAllCartProducts() {
         let app = XCUIApplication()
         app.resetCart()
         app.launch()
@@ -134,7 +134,7 @@ final class CartUITests: XCTestCase {
         }
     }
 
-    func test_removeCartProductDelete_swipeLeft() {
+    func testRemoveCartProductDelete_swipeLeft() {
         let app = XCUIApplication()
         app.resetCart()
         app.launch()
@@ -177,7 +177,7 @@ final class CartUITests: XCTestCase {
         }
     }
 
-    func test_removeCartProductBySwipeLeft() {
+    func testRemoveCartProductBySwipeLeft() {
         let app = XCUIApplication()
         app.resetCart()
         app.launch()
@@ -228,7 +228,7 @@ final class CartUITests: XCTestCase {
         }
     }
 
-    func test_removeCartProductByPressingMinusButton() {
+    func testRemoveCartProductByPressingMinusButton() {
         let app = XCUIApplication()
         app.resetCart()
         app.launch()
@@ -276,7 +276,7 @@ final class CartUITests: XCTestCase {
     }
 
     // swiftlint:disable function_body_length
-    func test_completeOrder() {
+    func testCompleteOrder() {
         let app = XCUIApplication()
         app.resetCart()
         app.launch()
@@ -344,5 +344,4 @@ final class CartUITests: XCTestCase {
             }
         }
     }
-
 }

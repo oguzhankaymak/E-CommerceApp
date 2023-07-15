@@ -2,7 +2,7 @@ import XCTest
 
 final class SearchUITests: XCTestCase {
 
-    func test_goToSearchWhenPressExploreButton() {
+    func testGoToSearchWhenPressExploreButton() {
         let app = XCUIApplication()
         app.launch()
 
@@ -15,7 +15,7 @@ final class SearchUITests: XCTestCase {
         XCTAssertTrue(searchField.exists, "The search field should exist after tapping the Explore button.")
     }
 
-    func test_displayCategoryLoading_whileFetchingCategories() {
+    func testDisplayCategoryLoadingWhileFetchingCategories() {
         let app = XCUIApplication()
         app.launch()
 
@@ -27,7 +27,7 @@ final class SearchUITests: XCTestCase {
         )
     }
 
-    func test_displayCategories_whenLoadedCategories() {
+    func testDisplayCategoriesWhenLoadedCategories() {
         let app = XCUIApplication()
         app.launch()
 
@@ -59,7 +59,7 @@ final class SearchUITests: XCTestCase {
         }
     }
 
-    func test_displayProductSkeletonLoadingCell_whileFetchingProducts() {
+    func testDisplayProductSkeletonLoadingCellWhileFetchingProducts() {
         let app = XCUIApplication()
         app.launch()
 
@@ -74,7 +74,7 @@ final class SearchUITests: XCTestCase {
         )
     }
 
-    func test_displayProductCell_whenLoadedProducts() {
+    func testDisplayProductCellWhenLoadedProducts() {
         let app = XCUIApplication()
         app.launch()
 
@@ -120,7 +120,7 @@ final class SearchUITests: XCTestCase {
         }
     }
 
-    func test_cartTabBarBadgeValue_whenAddProductToCart() {
+    func testCartTabBarBadgeValue_whenAddProductToCart() {
         let app = XCUIApplication()
         app.resetCart()
         app.launch()

@@ -2,7 +2,7 @@ import XCTest
 
 final class ProductDetailUITests: XCTestCase {
 
-    func test_goToProductDetail() {
+    func testGoToProductDetail() {
         let app = XCUIApplication()
         app.launch()
 
@@ -46,7 +46,7 @@ final class ProductDetailUITests: XCTestCase {
         }
     }
 
-    func test_goBackAfterGoToProductDetail() {
+    func testGoBackAfterGoToProductDetail() {
         let app = XCUIApplication()
         app.launch()
 

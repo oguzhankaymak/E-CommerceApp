@@ -2,7 +2,7 @@ import XCTest
 
 final class HomeUITests: XCTestCase {
 
-    func test_displayProductCell_whenLoadedProducts() {
+    func testDisplayProductCell_whenLoadedProducts() {
         let app = XCUIApplication()
         app.launch()
 
@@ -45,7 +45,7 @@ final class HomeUITests: XCTestCase {
         }
     }
 
-    func test_goToSearchWhenPressExploreButton() {
+    func testGoToSearchWhenPressExploreButton() {
         let app = XCUIApplication()
         app.launch()
 
@@ -58,7 +58,7 @@ final class HomeUITests: XCTestCase {
         XCTAssertTrue(searchField.exists, "The search field should exist after tapping the Explore button.")
     }
 
-    func test_displayCollectionViewHeader() {
+    func testDisplayCollectionViewHeader() {
         let app = XCUIApplication()
         app.launch()
 
@@ -71,7 +71,7 @@ final class HomeUITests: XCTestCase {
         XCTAssertTrue(exploreButton.exists)
     }
 
-    func test_displayCollectionViewSectionHeaders() {
+    func testDisplayCollectionViewSectionHeaders() {
         let app = XCUIApplication()
         app.launch()
 
@@ -90,7 +90,7 @@ final class HomeUITests: XCTestCase {
         )
     }
 
-    func test_cartTabBarBadgeValue_whenAddProductToCart() {
+    func testCartTabBarBadgeValue_whenAddProductToCart() {
         let app = XCUIApplication()
         app.resetCart()
         app.launch()
