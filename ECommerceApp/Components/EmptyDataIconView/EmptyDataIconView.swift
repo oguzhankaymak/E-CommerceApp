@@ -13,6 +13,8 @@ final class EmptyDataIconView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = Theme.AppFont.productInfo
         label.textColor = Theme.Color.lightGrey
+        label.textAlignment = .center
+        label.accessibilityIdentifier = "cart_EmptyDataTitleLabel"
         return label
     }()
 
@@ -57,7 +59,9 @@ extension EmptyDataIconView {
 
         let titleLabelConstrains = [
             titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
-            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
         ]
 
         NSLayoutConstraint.activate(imageViewConstraints)

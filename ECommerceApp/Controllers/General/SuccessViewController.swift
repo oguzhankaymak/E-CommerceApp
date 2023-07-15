@@ -49,6 +49,7 @@ class SuccessViewController: UIViewController {
         button.setTitle(buttonName, for: .normal)
         button.setTitleColor(Theme.Color.white, for: .normal)
         button.addTarget(self, action: #selector(mainButtonDidTap), for: .touchUpInside)
+        button.accessibilityIdentifier = "main_button"
         return button
     }()
 

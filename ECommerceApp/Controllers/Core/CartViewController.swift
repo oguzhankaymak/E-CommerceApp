@@ -10,6 +10,7 @@ class CartViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = Theme.Color.backgroundColor
         tableView.separatorInset = .zero
+        tableView.accessibilityIdentifier = "cart_tableView"
         return tableView
     }()
 

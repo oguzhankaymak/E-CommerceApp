@@ -33,6 +33,7 @@ final class QuantityInputView: UIView {
         button.setImage(image, for: .normal)
         button.backgroundColor = Theme.Color.black
         button.addTarget(self, action: #selector(didTapPlusButton), for: .touchUpInside)
+        button.accessibilityIdentifier = "plus_button"
         return button
     }()
 
@@ -52,6 +53,7 @@ final class QuantityInputView: UIView {
         button.setImage(image, for: .normal)
         button.backgroundColor = .red
         button.addTarget(self, action: #selector(didTapMinusButton), for: .touchUpInside)
+        button.accessibilityIdentifier = "minus_button"
         return button
     }()
 
